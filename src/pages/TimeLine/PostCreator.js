@@ -7,6 +7,7 @@ import { CreationBox } from "../../assets/styles/styles";
             <form>
                 <input/>
                 <input/>
+                <button>Publish</button>
             </form>
         </CreationBox>
     )

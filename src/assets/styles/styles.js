@@ -121,4 +121,24 @@ export const CreationBox = styled.div`
     letter-spacing: 0em;
     text-align: center;
   }
+
+  button {
+    font-size: 13px;
+    font-weight: 700;
+    color:#ffff;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: center;
+
+    background: #1877f2;
+    border-radius: 5px;
+
+    width: 112px;
+    height: 22px;
+  }
+
+  @media (max-width: 768px) {
+    width: 42%;
+    height: 20%;
+  }
 `;
