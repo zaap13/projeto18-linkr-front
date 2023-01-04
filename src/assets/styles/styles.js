@@ -137,7 +137,7 @@ export const CreationBox = styled.div`
     height: 22px;
   }
 
-  @media (max-width: 768px) {
+  @media (min-width: 768px) {
     width: 42%;
     height: 20%;
   }
