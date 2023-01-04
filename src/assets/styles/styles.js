@@ -106,7 +106,19 @@ export const Text = styled.p`
   color: #ffffff;
 `;
 
+export const CreationBox = styled.div`
+  width: 100%;
+  height: 25%;
 
-export const CreationBox=styled.div`
-  
-`
+  padding: 10px;
+
+  background-color: #ffff;
+
+  h1 {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: center;
+  }
+`;
