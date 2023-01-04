@@ -110,6 +110,12 @@ export const CreationBox = styled.div`
   width: 100%;
   height: 25%;
 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: relative;
+
   padding: 10px;
 
   background-color: #ffff;
@@ -119,13 +125,35 @@ export const CreationBox = styled.div`
     font-weight: 300;
     line-height: 20px;
     letter-spacing: 0em;
-    text-align: center;
+    text-align: left;
+    width: 80%;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 80%;
+    position: relative;
+  }
+
+  img {
+    width: 50px;
+    height: 50px;
+
+    position: absolute;
+    top: 10px;
+    left: 10px;
+
+    display: none;
+
+    border-radius: 26.5px;
   }
 
   button {
     font-size: 13px;
     font-weight: 700;
-    color:#ffff;
+    color: #ffff;
     line-height: 16px;
     letter-spacing: 0em;
     text-align: center;
@@ -133,12 +161,35 @@ export const CreationBox = styled.div`
     background: #1877f2;
     border-radius: 5px;
 
-    width: 112px;
-    height: 22px;
+    width: 30%;
+    height: 13%;
+
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
   }
 
+  ::placeholder {
+    color: #949494;
+
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
   @media (min-width: 768px) {
     width: 42%;
     height: 20%;
+
+    border-radius: 16px;
+
+    button {
+      height: 31px;
+    }
+
+    img {
+      display: initial;
+    }
   }
 `;
