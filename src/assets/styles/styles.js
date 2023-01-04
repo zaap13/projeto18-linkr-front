@@ -105,3 +105,8 @@ export const Text = styled.p`
 
   color: #ffffff;
 `;
+
+
+export const CreationBox=styled.div`
+  
+`
