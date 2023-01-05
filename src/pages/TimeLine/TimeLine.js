@@ -1,11 +1,13 @@
-import styled from "styled-components";
 import { PublicMain } from "../../assets/styles/styles";
+import Post from "./Post";
 import PostCreator from "./PostCreator";
 
 export default function TimeLine() {
+
   return (
-    <PublicMain>
+    <PublicMain onlyColumn={true}>
       <PostCreator />
+      <Post/>
     </PublicMain>
   );
 }

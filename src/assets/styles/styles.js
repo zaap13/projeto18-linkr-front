@@ -9,7 +9,7 @@ export const PublicMain = styled.main`
   justify-content: space-evenly;
   box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
   @media (min-width: 768px) {
-    flex-direction: row;
+    flex-direction: ${(props) => (props.onlyColumn ? "column" : "row")};
   }
 `;
 
@@ -126,14 +126,14 @@ export const CreationBox = styled.div`
     line-height: 20px;
     letter-spacing: 0em;
     text-align: left;
-    width: 80%;
+    width: 70%;
   }
 
   form {
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 80%;
+    width: 70%;
     position: relative;
   }
 
@@ -181,6 +181,65 @@ export const CreationBox = styled.div`
   @media (min-width: 768px) {
     width: 42%;
     height: 20%;
+
+    border-radius: 16px;
+
+    button {
+      height: 31px;
+    }
+
+    img {
+      display: initial;
+    }
+  }
+`;
+
+export const PostCard = styled.div`
+  width: 100%;
+  height: 35%;
+
+  padding: 10px;
+
+  background-color: #171717;
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: #ffff;
+
+  img {
+    width: 50px;
+    height: 50px;
+
+    position: absolute;
+    top: 10px;
+    left: 10px;
+
+    display: none;
+
+    border-radius: 26.5px;
+  }
+
+  h1 {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+    width: 70%;
+    color: #ffff;
+  }
+
+  p {
+    width: 70%;
+  }
+
+  @media (min-width: 768px) {
+    width: 42%;
+    height: 27%;
 
     border-radius: 16px;
 
