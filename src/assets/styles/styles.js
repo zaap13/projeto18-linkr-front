@@ -3,8 +3,9 @@ import { logoFont, titleFont } from "../../constants/fonts";
 
 export const PublicMain = styled.main`
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
   flex-direction: column;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: space-evenly;
   box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
@@ -107,8 +108,10 @@ export const Text = styled.p`
 `;
 
 export const CreationBox = styled.div`
-  width: 100%;
-  height: 25%;
+  width: 100vw;
+  height: 25vh;
+
+  margin: 5vh auto;
 
   display: flex;
   flex-direction: column;
@@ -179,8 +182,8 @@ export const CreationBox = styled.div`
     text-align: left;
   }
   @media (min-width: 768px) {
-    width: 42%;
-    height: 20%;
+    width: 42vw;
+    height: 20vh;
 
     border-radius: 16px;
 
@@ -195,8 +198,10 @@ export const CreationBox = styled.div`
 `;
 
 export const PostCard = styled.div`
-  width: 100%;
-  height: 35%;
+  width: 100vw;
+  height: 35vh;
+
+  margin: 5vh auto;
 
   padding: 10px;
 
@@ -238,8 +243,8 @@ export const PostCard = styled.div`
   }
 
   @media (min-width: 768px) {
-    width: 42%;
-    height: 27%;
+    width: 42vw;
+    height: 27vh;
 
     border-radius: 16px;
 
