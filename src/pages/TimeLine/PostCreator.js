@@ -3,13 +3,19 @@ import { useState } from "react";
 import { CreationBox } from "../../assets/styles/styles";
 import { BASE_URL } from "../../constants/url";
 
-function publishPost(event, setPublishing, setForm, getPosts, setList) {
+function publishPost(event, setPublishing, setForm, getPosts, setList, form) {
   setPublishing(true);
 
-  const promise = axios.post(`${BASE_URL}/posts`);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("linkr")}`,
+    },
+  };
+
+  const promise = axios.post(`${BASE_URL}/posts`, config, form);
   promise.then((res) => {
     setPublishing(false);
-    setForm({ url: "", text: "" });
+    setForm({ url: "", content: "" });
     getPosts(setList);
   });
   promise.catch(() => {
@@ -24,7 +30,7 @@ function handleForm(e, form, setForm) {
 }
 export default function PostCreator({ getPosts, setList }) {
   const [publishing, setPublishing] = useState(false);
-  const [form, setForm] = useState({ url: "", text: "" });
+  const [form, setForm] = useState({ url: "", content: "" });
   return (
     <CreationBox>
       <img
@@ -34,7 +40,7 @@ export default function PostCreator({ getPosts, setList }) {
       <h1>What are you going to share today?</h1>
       <form
         onSubmit={(event) =>
-          publishPost(event, setPublishing, setForm, getPosts, setList)
+          publishPost(event, setPublishing, setForm, getPosts, setList, form)
         }
       >
         <input
@@ -48,7 +54,7 @@ export default function PostCreator({ getPosts, setList }) {
         />
         <input
           onChange={(e) => handleForm(e, form, setForm)}
-          name="text"
+          name="content"
           disabled={publishing}
           placeholder="Awesome article about #javascript"
         />
