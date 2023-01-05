@@ -3,13 +3,13 @@ import { useState } from "react";
 import { CreationBox } from "../../assets/styles/styles";
 import { BASE_URL } from "../../constants/url";
 
-function publishPost(event, setPublishing) {
+function publishPost(event, setPublishing, setForm) {
   setPublishing(true);
 
   const promise = axios.post(`${BASE_URL}/posts`);
   promise.then((res) => {
     setPublishing(false);
-    console.log(res.data);
+    setForm({ url: "", text: "" });
   });
   promise.catch(() => {
     setPublishing(false);
@@ -18,8 +18,12 @@ function publishPost(event, setPublishing) {
   event.preventDefault();
 }
 
+function handleForm(e, form, setForm) {
+  setForm({ ...form, [e.target.name]: e.target.value });
+}
 export default function PostCreator() {
   const [publishing, setPublishing] = useState(false);
+  const [form, setForm] = useState({ url: "", text: "" });
   return (
     <CreationBox>
       <img
@@ -27,14 +31,19 @@ export default function PostCreator() {
         alt="vasco"
       ></img>
       <h1>What are you going to share today?</h1>
-      <form onSubmit={(event) => publishPost(event, setPublishing)}>
+      <form onSubmit={(event) => publishPost(event, setPublishing, setForm)}>
         <input
+          value={form.url}
+          onChange={(e) => handleForm(e, form, setForm)}
+          name="url"
           disabled={publishing}
           required
           type="url"
           placeholder="http://..."
         />
         <input
+          onChange={(e) => handleForm(e, form, setForm)}
+          name="text"
           disabled={publishing}
           placeholder="Awesome article about #javascript"
         />
