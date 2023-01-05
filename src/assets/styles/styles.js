@@ -38,7 +38,7 @@ export const LogoBox = styled.div`
 
   @media (min-width: 768px) {
     width: 60%;
-    height: 100%;
+    height: 100vh;
     align-items: center;
     justify-content: center;
 
