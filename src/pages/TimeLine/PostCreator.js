@@ -11,8 +11,8 @@ function publishPost(event, setPublishing, setForm, getPosts, setList, form) {
       Authorization: `Bearer ${getToken.token}`,
     },
   };
-
-  const promise = axios.post(`${BASE_URL}/posts`, config, form);
+  
+  const promise = axios.post(`${BASE_URL}/posts`, form, config);
   promise.then((res) => {
     setPublishing(false);
     setForm({ url: "", content: "" });
