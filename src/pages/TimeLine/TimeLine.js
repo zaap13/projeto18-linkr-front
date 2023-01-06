@@ -4,6 +4,7 @@ import { PublicMain } from "../../assets/styles/styles";
 import { BASE_URL } from "../../constants/url";
 import Post from "./Post";
 import PostCreator from "./PostCreator";
+import Header from "../../components/Header/Header";
 
 function getPosts(setList) {
   const promise = axios.get(`${BASE_URL}/posts`);
@@ -17,16 +18,19 @@ export default function TimeLine() {
     getPosts(setList);
   }, []);
   return (
-    <PublicMain onlyColumn={true}>
-      <PostCreator  setList={setList} getPosts={getPosts} />
-      {postsList.map((post) => (
+    <>
+      <Header />
+      <PublicMain onlyColumn={true}>
+        <PostCreator  setList={setList} getPosts={getPosts} />
+        {postsList.map((post) => (
         <Post
           name={post.name}
           content={post.content}
           url={post.url}
           picture={post.picture}
         />
-      ))}
-    </PublicMain>
+        ))}
+      </PublicMain>
+    </>    
   );
 }
