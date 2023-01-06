@@ -18,9 +18,14 @@ export default function TimeLine() {
   }, []);
   return (
     <PublicMain onlyColumn={true}>
-      <PostCreator setList={setList} getPosts={getPosts} />
+      <PostCreator  setList={setList} getPosts={getPosts} />
       {postsList.map((post) => (
-        <Post />
+        <Post
+          name={post.name}
+          content={post.content}
+          url={post.url}
+          picture={post.picture}
+        />
       ))}
     </PublicMain>
   );
