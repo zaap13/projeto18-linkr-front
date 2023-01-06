@@ -6,9 +6,9 @@ export default function PrivateRoutes() {
   return (
     <Routes>
       <Route path="/timeline" element={<TimeLine />} />
-      <Route path="/user" element={<UserPage/>} />
+      <Route path="/user" element={<UserPage />} />
 
-      {/* <Route path="*" element={<Navigate to="/oii" />} /> */}
+      {<Route path="*" element={<Navigate to="/timeline" />} />}
     </Routes>
   );
 }

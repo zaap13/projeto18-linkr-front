@@ -14,10 +14,10 @@ import {
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setAuth, setUser} = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  
+
   function handleSignIn(e) {
     e.preventDefault();
     setLoading(true);
@@ -28,10 +28,9 @@ export default function SignIn() {
         password,
       })
       .then((res) => {
-        setAuth(true);
         setUser(res.data);
         localStorage.setItem("linkr", JSON.stringify(res.data));
-        navigate("/timeline");
+        window.location.reload(false);
       })
       .catch((err) => {
         alert(err.response.data);
