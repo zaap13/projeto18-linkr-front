@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { PublicMain } from "../../assets/styles/styles";
+import { Main } from "../../assets/styles/styles";
 import { BASE_URL } from "../../constants/url";
 import Post from "./Post";
 import PostCreator from "./PostCreator";
@@ -20,17 +20,17 @@ export default function TimeLine() {
   return (
     <>
       <Header />
-      <PublicMain onlyColumn={true}>
-        <PostCreator  setList={setList} getPosts={getPosts} />
+      <Main onlyColumn={true}>
+        <PostCreator setList={setList} getPosts={getPosts} />
         {postsList.map((post) => (
-        <Post
-          name={post.name}
-          content={post.content}
-          url={post.url}
-          picture={post.picture}
-        />
+          <Post
+            name={post.name}
+            content={post.content}
+            url={post.url}
+            picture={post.picture}
+          />
         ))}
-      </PublicMain>
-    </>    
+      </Main>
+    </>
   );
 }
