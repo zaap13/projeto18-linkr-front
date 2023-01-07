@@ -4,15 +4,14 @@ import axios from "axios";
 import { BASE_URL, loading_url } from "../../constants/url";
 import { PublicMain } from "../../assets/styles/styles";
 import Header from "../../components/Header/Header";
-import { PostCard } from "../../assets/styles/styles";
-import { ContainerPosts, Gif } from "./UserPageStyle"
+import Post from "../TimeLine/Post";
+import { ContainerPosts, Gif, Title } from "./UserPageStyle"
 
 
 export default function UserPage() {
-    //const { id } = useParams();
+    //let { id } = useParams();
     const id = 10
     const [userData, setUserData] = useState("");
-    const [userPosts, setUserPosts] = useState("");
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -22,7 +21,7 @@ export default function UserPage() {
                 Authorization: `Bearer ${getToken.token}`,
             },
         };
-console.log(`${BASE_URL}/user/${id}`, config)
+        console.log(`${BASE_URL}/user/${id}`, config)
         axios
             .get(`${BASE_URL}/user/${id}`, config)
             .then((res) => {
@@ -30,11 +29,9 @@ console.log(`${BASE_URL}/user/${id}`, config)
                 setLoading(false);
             })
             .catch((err) => {
-                console.log(err.response.data);
+                console.log(err);
             });
     }, []);
-
-console.log(userData)
 
     if (loading === true) {
         return (
@@ -51,10 +48,19 @@ console.log(userData)
         <PublicMain>
             <Header />
             <ContainerPosts>
-                <h1>{userData.username}</h1>
-                <PostCard />
-                <PostCard />
-                <PostCard />
+                <Title>
+                    <img src={userData.picture} alt="profile identification" />
+                    <h1>{userData.username}'s posts</h1>
+                </Title>
+                    {userData.posts.map((p, index) => (
+                        <Post
+                            key={index}
+                            picture={userData.picture}
+                            name={userData.name}
+                            content={p.content}
+                            url={p.url}
+                        />
+                    ))}
             </ContainerPosts>
         </PublicMain>
     );
