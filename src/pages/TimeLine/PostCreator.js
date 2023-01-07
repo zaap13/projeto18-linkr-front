@@ -5,10 +5,10 @@ import { BASE_URL } from "../../constants/url";
 
 function publishPost(event, setPublishing, setForm, getPosts, setList, form) {
   setPublishing(true);
-  const getToken = JSON.parse(localStorage.getItem("linkr"));
+  const user = JSON.parse(localStorage.getItem("linkr"));
   const config = {
     headers: {
-      Authorization: `Bearer ${getToken.token}`,
+      Authorization: `Bearer ${user.token}`,
     },
   };
   
