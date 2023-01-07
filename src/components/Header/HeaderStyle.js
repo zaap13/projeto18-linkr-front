@@ -14,6 +14,7 @@ const HeaderStyle = styled.nav`
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 2;
 
     h1 {
         font-size: 49px;
