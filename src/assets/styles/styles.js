@@ -8,6 +8,7 @@ export const PublicMain = styled.main`
   flex-wrap: nowrap;
   align-items: center;
   justify-content: space-evenly;
+  margin-top: 72px;
   box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
   @media (min-width: 768px) {
     flex-direction: ${(props) => (props.onlyColumn ? "column" : "row")};
