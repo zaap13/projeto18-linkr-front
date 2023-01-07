@@ -22,7 +22,7 @@ export default function Hashtag() {
   const [postsList, setList] = useState([]);
   useEffect(() => {
     getPosts(setList);
-  }, []);
+  }, [hashtag]);
   return (
     <>
       <Header />
