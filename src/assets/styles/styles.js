@@ -198,7 +198,7 @@ export const CreationBox = styled.div`
 
 export const PostCard = styled.div`
   width: 100vw;
-  height: fit-content;
+  min-height: 70px;
 
   margin: 2vh auto;
 
@@ -240,13 +240,8 @@ export const PostCard = styled.div`
 
   @media (min-width: 768px) {
     width: 611px;
-    height: 27vh;
 
     border-radius: 16px;
-
-    button {
-      height: 31px;
-    }
 
     h1 {
       font-size: 19px;
@@ -271,4 +266,18 @@ export const Main = styled.main`
   flex-wrap: nowrap;
   flex-direction: column;
   margin-top: 72px;
+`;
+
+export const Title = styled.h2`
+  font-family: ${titleFont};
+  font-weight: 700;
+  font-size: 33px;
+  line-height: 49px;
+  color: #ffffff;
+  margin: 0 15%;
+
+  @media (min-width: 768px) {
+    font-size: 43px;
+    line-height: 64px;
+  }
 `;
