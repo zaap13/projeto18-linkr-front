@@ -7,10 +7,15 @@ import PostCreator from "./PostCreator";
 import Header from "../../components/Header/Header";
 
 export default function TimeLine() {
+  const user = JSON.parse(localStorage.getItem("linkr"));
   const [postsList, setList] = useState([]);
 
   function getPosts(setList) {
-    const promise = axios.get(`${BASE_URL}/posts`);
+    const promise = axios.get(`${BASE_URL}/posts`, {
+      headers: {
+        authorization: `Bearer ${user.token}`,
+      },
+    });
     promise.then((resp) => setList(resp.data));
     promise.catch((error) => console.log(error));
   }
