@@ -6,13 +6,17 @@ import {
   SearchContainer,
   SearchUserList,
   UserAlreadySearched,
+  IconImageProfile,
+  LogoutText
 } from "./HeaderStyle";
-import { GoSearch } from "react-icons/go";
+import { GoSearch, GoChevronDown, GoChevronUp } from "react-icons/go";
 import { useState } from "react";
 
 export default function Header() {
   const [usersList, setUsersList] = useState([]); //salvar aqui a lista de usuarios que vai pegar do localstorage
   const [display, setDisplay] = useState(false);
+  const [clicked, setClicked] = useState(false);
+  const userLoggedInData = JSON.parse(localStorage.getItem('linkr'));
 
   return (
     <HeaderStyle>
@@ -31,24 +35,31 @@ export default function Header() {
         <SearchUserList
           display={usersList.length !== 0 && display === true ? "flex" : "none"}
         >
-          <UserAlreadySearched>
-            <img
-              src="https://a-static.mlcdn.com.br/800x560/carrinho-brinquedo-vermelho-racer-55-mk206-dismat-dismat-brinquedos/emporiocasa/921943/988c845844f9d8c11c4b14cc7aaff15c.jpg"
-              alt="profile"
-            />
-            <p>Nome da pessoa</p>
-          </UserAlreadySearched>
+          {usersList.map((user, index) => (
+            <UserAlreadySearched key={index} >
+              <img
+                src={user.picture}
+                alt="profile"
+              />
+              <p>{user.username}</p>
+            </UserAlreadySearched>
+          ))}
         </SearchUserList>
       </SearchContainer>
-      <LogoutContainer onClick={() => localStorage.clear()}>
-        <a href="*">
-          <ion-icon name="chevron-down"></ion-icon>
-          <ion-icon name="chevron-up">Logout</ion-icon>
-        </a>
-        <img
-          src="https://a-static.mlcdn.com.br/800x560/carrinho-brinquedo-vermelho-racer-55-mk206-dismat-dismat-brinquedos/emporiocasa/921943/988c845844f9d8c11c4b14cc7aaff15c.jpg"
-          alt="profile"
-        />
+      <LogoutContainer>
+        <IconImageProfile onClick={() => setClicked(!clicked)} >
+          <GoChevronDown size="25px" color= "#FFFFFF" display= { clicked ? "none" : "" } />
+          <GoChevronUp size="25px" color= "#FFFFFF" display= { clicked ? "" : "none" } />
+          <img
+            src={userLoggedInData.picture}
+            alt="profile"
+          />
+        </IconImageProfile>
+        <LogoutText onClick={() => localStorage.clear()} display={clicked ? "block" : "none"}>
+          <a href="*">
+            Logout
+          </a>
+        </LogoutText>
       </LogoutContainer>
     </HeaderStyle>
   );
