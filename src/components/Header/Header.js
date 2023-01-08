@@ -7,20 +7,22 @@ import {
   SearchUserList,
   UserAlreadySearched,
   IconImageProfile,
-  LogoutText
+  LogoutText,
 } from "./HeaderStyle";
 import { GoSearch, GoChevronDown, GoChevronUp } from "react-icons/go";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const [usersList, setUsersList] = useState([]); //salvar aqui a lista de usuarios que vai pegar do localstorage
   const [display, setDisplay] = useState(false);
   const [clicked, setClicked] = useState(false);
-  const userLoggedInData = JSON.parse(localStorage.getItem('linkr'));
+  const userLoggedInData = JSON.parse(localStorage.getItem("linkr"));
+  const navigate = useNavigate();
 
   return (
     <HeaderStyle>
-      <h1>linkr</h1>
+      <h1 onClick={() => navigate("*")}>linkr</h1>
       <SearchContainer>
         <InputContainer>
           <input
@@ -36,29 +38,32 @@ export default function Header() {
           display={usersList.length !== 0 && display === true ? "flex" : "none"}
         >
           {usersList.map((user, index) => (
-            <UserAlreadySearched key={index} >
-              <img
-                src={user.picture}
-                alt="profile"
-              />
+            <UserAlreadySearched key={index}>
+              <img src={user.picture} alt="profile" />
               <p>{user.username}</p>
             </UserAlreadySearched>
           ))}
         </SearchUserList>
       </SearchContainer>
       <LogoutContainer>
-        <IconImageProfile onClick={() => setClicked(!clicked)} >
-          <GoChevronDown size="25px" color= "#FFFFFF" display= { clicked ? "none" : "" } />
-          <GoChevronUp size="25px" color= "#FFFFFF" display= { clicked ? "" : "none" } />
-          <img
-            src={userLoggedInData.picture}
-            alt="profile"
+        <IconImageProfile onClick={() => setClicked(!clicked)}>
+          <GoChevronDown
+            size="25px"
+            color="#FFFFFF"
+            display={clicked ? "none" : ""}
           />
+          <GoChevronUp
+            size="25px"
+            color="#FFFFFF"
+            display={clicked ? "" : "none"}
+          />
+          <img src={userLoggedInData.picture} alt="profile" />
         </IconImageProfile>
-        <LogoutText onClick={() => localStorage.clear()} display={clicked ? "block" : "none"}>
-          <a href="*">
-            Logout
-          </a>
+        <LogoutText
+          onClick={() => localStorage.clear()}
+          display={clicked ? "block" : "none"}
+        >
+          <a href="*">Logout</a>
         </LogoutText>
       </LogoutContainer>
     </HeaderStyle>
