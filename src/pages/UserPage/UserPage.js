@@ -16,10 +16,10 @@ export default function UserPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const getToken = JSON.parse(localStorage.getItem("linkr"));
+        const user = JSON.parse(localStorage.getItem("linkr"));
         const config = {
             headers: {
-                Authorization: `Bearer ${getToken.token}`,
+                Authorization: `Bearer ${user.token}`,
             },
         };
 console.log(`${BASE_URL}/user/${id}`, config)

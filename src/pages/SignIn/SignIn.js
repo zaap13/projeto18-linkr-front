@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
-import AuthContext from "../../contexts/AuthContext";
+import { useState } from "react";
 import { BASE_URL } from "../../constants/url";
 import axios from "axios";
 import {
@@ -14,8 +13,6 @@ import {
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setUser } = useContext(AuthContext);
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   function handleSignIn(e) {
@@ -28,7 +25,6 @@ export default function SignIn() {
         password,
       })
       .then((res) => {
-        setUser(res.data);
         localStorage.setItem("linkr", JSON.stringify(res.data));
         window.location.reload(false);
       })

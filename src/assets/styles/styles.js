@@ -4,15 +4,10 @@ import { logoFont, titleFont } from "../../constants/fonts";
 export const PublicMain = styled.main`
   display: flex;
   min-height: 100vh;
-  flex-direction: column;
-  flex-wrap: nowrap;
   align-items: center;
   justify-content: space-evenly;
   margin-top: 72px;
   box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
-  @media (min-width: 768px) {
-    flex-direction: ${(props) => (props.onlyColumn ? "column" : "row")};
-  }
 `;
 
 export const LogoBox = styled.div`
@@ -110,35 +105,43 @@ export const Text = styled.p`
 
 export const CreationBox = styled.div`
   width: 100vw;
-  height: 25vh;
-
+  min-height: fit-content;
+  gap: 10px;
   margin: 5vh auto;
 
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   position: relative;
 
   padding: 10px;
+  padding-left: 70px;
 
   background-color: #ffff;
 
   h1 {
     font-size: 17px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 20px;
     letter-spacing: 0em;
     text-align: left;
-    width: 70%;
   }
 
   form {
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 70%;
-    position: relative;
+    width: 100%;
+    gap: 5px;
+
+    input {
+      height: 30px;
+
+      background: #efefef;
+      border-radius: 5px;
+    }
   }
 
   img {
@@ -165,12 +168,9 @@ export const CreationBox = styled.div`
     background: #1877f2;
     border-radius: 5px;
 
-    width: 30%;
-    height: 13%;
-
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
+    width: 112px;
+    height: 22px;
+    align-self: flex-end;
   }
 
   ::placeholder {
@@ -183,8 +183,7 @@ export const CreationBox = styled.div`
     text-align: left;
   }
   @media (min-width: 768px) {
-    width: 42vw;
-    height: 20vh;
+    width: 611px;
 
     border-radius: 16px;
 
@@ -200,19 +199,19 @@ export const CreationBox = styled.div`
 
 export const PostCard = styled.div`
   width: 100vw;
-  height: 35vh;
+  min-height: 70px;
 
-  margin: 5vh auto;
+  margin: 2vh auto;
 
   padding: 10px;
-
+  padding-left: 65px;
   background-color: #171717;
 
   position: relative;
 
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 
   color: #ffff;
 
@@ -224,37 +223,62 @@ export const PostCard = styled.div`
     top: 10px;
     left: 10px;
 
-    display: none;
-
+    background-color: #ffff;
     border-radius: 26.5px;
   }
 
   h1 {
     font-size: 17px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 20px;
     letter-spacing: 0em;
-    text-align: left;
-    width: 70%;
-    color: #ffff;
+    color: #fff;
   }
 
   p {
-    width: 70%;
+    color: #b7b7b7;
   }
 
   @media (min-width: 768px) {
-    width: 42vw;
-    height: 27vh;
+    width: 611px;
 
     border-radius: 16px;
 
-    button {
-      height: 31px;
+    h1 {
+      font-size: 19px;
+      line-height: 23px;
+    }
+
+    p {
+      font-size: 17px;
+      line-height: 20px;
     }
 
     img {
-      display: initial;
+      width: 40px;
+      height: 40px;
     }
+  }
+`;
+
+export const Main = styled.main`
+  display: flex;
+  min-height: 100vh;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  margin-top: 72px;
+`;
+
+export const Title = styled.h2`
+  font-family: ${titleFont};
+  font-weight: 700;
+  font-size: 33px;
+  line-height: 49px;
+  color: #ffffff;
+  margin: 0 15%;
+
+  @media (min-width: 768px) {
+    font-size: 43px;
+    line-height: 64px;
   }
 `;
