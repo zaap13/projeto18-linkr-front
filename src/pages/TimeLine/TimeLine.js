@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Main, Title } from "../../assets/styles/styles";
+import { Container, Main, Title } from "../../assets/styles/styles";
 import { BASE_URL } from "../../constants/url";
 import Post from "../../components/Post";
 import PostCreator from "./PostCreator";
 import Header from "../../components/Header/Header";
+import Trending from "../../components/Trending";
 
 export default function TimeLine() {
   const user = JSON.parse(localStorage.getItem("linkr"));
@@ -24,8 +25,9 @@ export default function TimeLine() {
     getPosts(setList);
   }, []);
   return (
-    <>
+    <Container>
       <Header />
+
       <Main>
         <Title>timeline</Title>
         <PostCreator setList={setList} getPosts={getPosts} />
@@ -39,6 +41,7 @@ export default function TimeLine() {
           />
         ))}
       </Main>
-    </>
+      <Trending />
+    </Container>
   );
 }
