@@ -6,7 +6,6 @@ export const PublicMain = styled.main`
   min-height: 100vh;
   align-items: center;
   justify-content: space-evenly;
-  margin-top: 72px;
   box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
 `;
 
