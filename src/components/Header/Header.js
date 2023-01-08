@@ -10,20 +10,13 @@ import {
   LogoutText
 } from "./HeaderStyle";
 import { GoSearch, GoChevronDown, GoChevronUp } from "react-icons/go";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function Header() {
-  const navigate = useNavigate();
   const [usersList, setUsersList] = useState([]); //salvar aqui a lista de usuarios que vai pegar do localstorage
   const [display, setDisplay] = useState(false);
   const [clicked, setClicked] = useState(false);
   const userLoggedInData = JSON.parse(localStorage.getItem('linkr'));
-
-  function logout() {
-    localStorage.clear();
-    navigate("/");
-  };
 
   return (
     <HeaderStyle>
@@ -62,8 +55,10 @@ export default function Header() {
             alt="profile"
           />
         </IconImageProfile>
-        <LogoutText onClick={logout} display={clicked ? "block" : "none"}>
-          Logout
+        <LogoutText onClick={() => localStorage.clear()} display={clicked ? "block" : "none"}>
+          <a href="*">
+            Logout
+          </a>
         </LogoutText>
       </LogoutContainer>
     </HeaderStyle>

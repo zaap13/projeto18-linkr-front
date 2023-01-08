@@ -133,16 +133,20 @@ const LogoutText = styled.button`
   height: 43px;
 
   display: ${(props) => props.display};
-  
-  color: #FFFFFF;
-  font-size: 15px;
-  font-weight: bold;
-  letter-spacing: 5%;
 
   cursor: pointer;
   
   position: absolute;
   right: 0;
+
+  a {
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+
+    text-decoration: none;
+    }
 `;
 
 export {
