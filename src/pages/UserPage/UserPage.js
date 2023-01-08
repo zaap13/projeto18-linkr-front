@@ -8,8 +8,7 @@ import Post from "../../components/Post";
 import { ContainerPosts, Gif, Title } from "./UserPageStyle";
 
 export default function UserPage() {
-  //let { id } = useParams();
-  const id = 10;
+  let { id } = useParams();
   const [userData, setUserData] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -20,7 +19,7 @@ export default function UserPage() {
         Authorization: `Bearer ${user.token}`,
       },
     };
-    console.log(`${BASE_URL}/user/${id}`, config);
+    
     axios
       .get(`${BASE_URL}/user/${id}`, config)
       .then((res) => {
@@ -54,6 +53,7 @@ export default function UserPage() {
         {userData.posts.map((p, index) => (
             <Post
               key={index}
+              userId={userData.id}
               picture={userData.picture}
               name={userData.username}
               content={p.content}
@@ -61,7 +61,7 @@ export default function UserPage() {
               likes={p.likes}
               whoLiked={[p.whoLiked[0], p.whoLiked[1]]}
             />
-          ))}
+        ))}
       </ContainerPosts>
     </Main>
   );
