@@ -41,7 +41,7 @@ export default function UserPage() {
         </Gif>
       </Main>
     );
-  }
+  };
 
   return (
     <Main>
@@ -52,15 +52,17 @@ export default function UserPage() {
           <h1>{userData.username}'s posts</h1>
         </Title>
         {userData.posts.map((p, index) => (
-          <Post
-            key={index}
-            picture={userData.picture}
-            name={userData.name}
-            content={p.content}
-            url={p.url}
-          />
-        ))}
+            <Post
+              key={index}
+              picture={userData.picture}
+              name={userData.username}
+              content={p.content}
+              url={p.url}
+              likes={p.likes}
+              whoLiked={[p.whoLiked[0], p.whoLiked[1]]}
+            />
+          ))}
       </ContainerPosts>
     </Main>
   );
-}
+};
