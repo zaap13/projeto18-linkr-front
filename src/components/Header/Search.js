@@ -24,7 +24,6 @@ export default function Search() {
     };
 
     function filterUsers(input) {
-        console.log(input)
         const user = JSON.parse(localStorage.getItem("linkr"));
         const config = {
             headers: {
