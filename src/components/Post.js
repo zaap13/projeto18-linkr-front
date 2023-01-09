@@ -1,4 +1,4 @@
-import { PostCard } from "../assets/styles/styles";
+import { PostCard, UrlImg, UserImg } from "../assets/styles/styles";
 import { ReactTagify } from "react-tagify";
 import { FaTrash } from "react-icons/fa";
 import { useNavigate, Link } from "react-router-dom";
@@ -7,7 +7,18 @@ import { BASE_URL } from "../constants/url";
 export default function Post({ post, deletePostFromState }) {
   const navigate = useNavigate();
 
-  const { userId, username, picture, content, url, likes, whoLiked } = post;
+  const {
+    userId,
+    username,
+    picture,
+    content,
+    url,
+    title,
+    description,
+    image,
+    likes,
+    whoLiked,
+  } = post;
 
   function deletePost() {
     const confirmDelete = window.confirm(
@@ -22,7 +33,7 @@ export default function Post({ post, deletePostFromState }) {
     <PostCard>
       <FaTrash color="#FFFFFF" size="14px" onClick={deletePost} />
       <Link to={`${BASE_URL}/user/${userId}`}>
-        <img src={picture} alt="profile"></img>
+        <UserImg src={picture} alt="profile" />
         <h1>{username}</h1>
       </Link>
       <p>{likes} likes</p>
@@ -42,8 +53,12 @@ export default function Post({ post, deletePostFromState }) {
           <p>{content}</p>
         </ReactTagify>
       )}
-
-      <a href={url}>{url}</a>
+      <div>
+        <h2>{title}</h2>
+        <p>{description}</p>
+        <a href={url}>{url}</a>
+        <UrlImg src={image} alt="url image" />
+      </div>
     </PostCard>
   );
 }
