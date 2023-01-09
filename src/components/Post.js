@@ -44,7 +44,7 @@ export default function Post({ post, deletePostFromState }) {
           {whoLiked[0]} e outras {likes - 1} pessoas
         </p>
       ) : (
-        <p>{whoLiked[0]}</p>
+        whoLiked && <p>{whoLiked[0]}</p>
       )}
 
       {content && (
