@@ -25,7 +25,7 @@ export default function Post({ post, deletePostFromState }) {
       "Tem certeza que você quer excluir este post?"
     );
     if (confirmDelete) {
-      deletePostFromState(userId);
+      deletePostFromState(post.id);
     }
   }
 
