@@ -41,7 +41,6 @@ export default function Search() {
                 setInput("");
                 console.log(err);
             });
-        console.log(usersList)
     };
 
     return (
