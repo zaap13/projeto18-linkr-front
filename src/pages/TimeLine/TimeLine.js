@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Main, Title } from "../../assets/styles/styles";
+import { Container, Main, Title } from "../../assets/styles/styles";
 import { BASE_URL } from "../../constants/url";
 import Post from "../../components/Post";
 import PostCreator from "./PostCreator";
 import Header from "../../components/Header/Header";
+import Trending from "../../components/Trending";
 
 export default function TimeLine() {
   const user = JSON.parse(localStorage.getItem("linkr"));
@@ -23,22 +24,37 @@ export default function TimeLine() {
   useEffect(() => {
     getPosts(setList);
   }, []);
+
+  function deletePostFromState(postId) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    axios.delete(`${BASE_URL}/posts/${postId}`, config)
+    .then(() => {
+      setList(postsList.filter(post => post.userId !== postId)); 
+    })
+    .catch(() => console.log("error"));
+  };
+
   return (
-    <>
+    <Container>
       <Header />
+
       <Main>
         <Title>timeline</Title>
         <PostCreator setList={setList} getPosts={getPosts} />
         {postsList.map((post) => (
           <Post
             key={post.id}
-            name={post.name}
-            content={post.content}
-            url={post.url}
-            picture={post.picture}
+            post={post} 
+            deletePostFromState={deletePostFromState}
           />
         ))}
       </Main>
-    </>
+      <Trending />
+    </Container>
   );
 }

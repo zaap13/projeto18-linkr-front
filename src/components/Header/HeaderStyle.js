@@ -3,7 +3,7 @@ import { logoFont } from "../../constants/fonts";
 
 const HeaderStyle = styled.nav`
   background-color: #151515;
-  padding: 0 15px;
+  padding: 0 0 0 15px;
 
   width: 100%;
   height: 72px;
@@ -104,12 +104,49 @@ const UserAlreadySearched = styled.div`
 `;
 
 const LogoutContainer = styled.div`
-  img {
-    width: 53px;
-    height: 53px;
+  position: relative;
 
+  width: 100px;
+`;
+
+const IconImageProfile = styled.div` 
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  img {
     border-radius: 50%;
+
+    width: 44px;
+    height: 44px;
   }
+`;
+
+const LogoutText = styled.button` 
+  background-color: #171717;
+  border-radius: 0 0 0 20px;
+
+  width: 100%;
+  height: 43px;
+
+  display: ${(props) => props.display};
+
+  cursor: pointer;
+  
+  position: absolute;
+  right: 0;
+
+  a {
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+
+    text-decoration: none;
+    }
 `;
 
 export {
@@ -120,4 +157,6 @@ export {
   SearchUserList,
   UserAlreadySearched,
   LogoutContainer,
+  IconImageProfile,
+  LogoutText
 };

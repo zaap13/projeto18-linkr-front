@@ -6,7 +6,6 @@ export const PublicMain = styled.main`
   min-height: 100vh;
   align-items: center;
   justify-content: space-evenly;
-  margin-top: 72px;
   box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
 `;
 
@@ -198,8 +197,8 @@ export const CreationBox = styled.div`
 `;
 
 export const PostCard = styled.div`
-  width: 100vw;
-  min-height: 70px;
+  width: 100%;
+  min-height: 200px;
 
   margin: 2vh auto;
 
@@ -215,18 +214,6 @@ export const PostCard = styled.div`
 
   color: #ffff;
 
-  img {
-    width: 50px;
-    height: 50px;
-
-    position: absolute;
-    top: 10px;
-    left: 10px;
-
-    background-color: #ffff;
-    border-radius: 26.5px;
-  }
-
   h1 {
     font-size: 17px;
     font-weight: 400;
@@ -237,6 +224,38 @@ export const PostCard = styled.div`
 
   p {
     color: #b7b7b7;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    height: 155px;
+    width: 500px;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+    padding: 10px;
+    padding-right: 155px;
+    gap: 5px;
+
+    border: 1px solid #4d4d4d;
+    border-radius: 11px;
+
+    font-size: 11px;
+    line-height: 13px;
+    font-weight: 400;
+    color: #cecece;
+    h2 {
+      font-size: 16px;
+      line-height: 19px;
+    }
+    p {
+      color: #9b9595;
+    }
+
+    h3 {
+      color: #cecece;
+    }
   }
 
   @media (min-width: 768px) {
@@ -253,11 +272,6 @@ export const PostCard = styled.div`
       font-size: 17px;
       line-height: 20px;
     }
-
-    img {
-      width: 40px;
-      height: 40px;
-    }
   }
 `;
 
@@ -266,7 +280,6 @@ export const Main = styled.main`
   min-height: 100vh;
   flex-wrap: nowrap;
   flex-direction: column;
-  margin-top: 72px;
 `;
 
 export const Title = styled.h2`
@@ -275,10 +288,79 @@ export const Title = styled.h2`
   font-size: 33px;
   line-height: 49px;
   color: #ffffff;
-  margin: 0 15%;
 
   @media (min-width: 768px) {
     font-size: 43px;
     line-height: 64px;
+  }
+`;
+
+export const TrendingStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  width: 301px;
+  height: fit-content;
+
+  background: #171717;
+  border-radius: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  gap: 5px;
+  margin: 85px 20px;
+
+  div {
+    height: 40px;
+    border-bottom: 1px solid #484848;
+
+    h2 {
+      font-family: ${titleFont};
+      font-size: 27px;
+      line-height: 40px;
+      margin-left: 10px;
+    }
+  }
+
+  h3 {
+    font-size: 19px;
+    line-height: 23px;
+    letter-spacing: 0.05em;
+    margin-left: 10px;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+export const Container = styled.div`
+  display: flex;
+  margin-top: 72px;
+  align-items: flex-start;
+  justify-content: center;
+`;
+
+export const UrlImg = styled.img`
+  width: 150px;
+  height: 153px;
+  border-radius: 0px 12px 13px 0px;
+  position: absolute;
+  right: 0;
+`;
+
+export const UserImg = styled.img`
+  width: 50px;
+  height: 50px;
+
+  position: absolute;
+  top: 10px;
+  left: 10px;
+
+  background-color: #ffff;
+  border-radius: 26.5px;
+
+  @media (min-width: 768px) {
+    width: 40px;
+    height: 40px;
   }
 `;
