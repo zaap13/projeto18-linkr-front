@@ -1,5 +1,5 @@
 import { PostCard } from "../assets/styles/styles";
-//import { ReactTagify } from "react-tagify";
+import { ReactTagify } from "react-tagify";
 import { useNavigate, Link } from "react-router-dom";
 import { BASE_URL } from "../constants/url";
 
@@ -13,14 +13,14 @@ export default function Post({ userId, name, picture, content, url, likes, whoLi
         <h1>{name}</h1>
       </Link>
       <p>{likes} likes</p>
-      {likes > 1 ? <p>{whoLiked[0]} e outras {likes - 1} pessoas</p> : <p>{whoLiked[0]} amou isso</p>}
+      {/* {likes > 1 ? <p>{whoLiked[0]} e outras {likes - 1} pessoas</p> : <p>{whoLiked[0]}</p>} */}
       <p>{content}</p>
-      {/* <ReactTagify
+      <ReactTagify
         colors={"white"}
         tagClicked={(tag) => navigate(`/hashtag/${tag.slice(1)}`)}
       >
         <p>{content}</p>
-      </ReactTagify> */}
+      </ReactTagify>
       <a href={url}>{url}</a>
     </PostCard>
   );
