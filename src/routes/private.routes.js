@@ -7,7 +7,7 @@ export default function PrivateRoutes() {
   return (
     <Routes>
       <Route path="/timeline" element={<TimeLine />} />
-      <Route path="/user" element={<UserPage />} />
+      <Route path="/user/:id" element={<UserPage />} />
       <Route path="/hashtag/:hashtag" element={<Hashtag />} />
 
       {<Route path="*" element={<Navigate to="/timeline" />} />}

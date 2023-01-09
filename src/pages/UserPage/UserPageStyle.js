@@ -11,6 +11,10 @@ const ContainerPosts = styled.div`
 }
 `
 const Gif = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 img {
     width: 80px;
 }
