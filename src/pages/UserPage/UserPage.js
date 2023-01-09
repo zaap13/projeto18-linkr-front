@@ -9,8 +9,7 @@ import { ContainerPosts, Gif, Title } from "./UserPageStyle";
 import Trending from "../../components/Trending";
 
 export default function UserPage() {
-  //let { id } = useParams();
-  const id = 10;
+  let { id } = useParams();
   const [userData, setUserData] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -21,7 +20,7 @@ export default function UserPage() {
         Authorization: `Bearer ${user.token}`,
       },
     };
-    console.log(`${BASE_URL}/user/${id}`, config);
+    
     axios
       .get(`${BASE_URL}/user/${id}`, config)
       .then((res) => {
@@ -42,29 +41,33 @@ export default function UserPage() {
         </Gif>
       </Main>
     );
-  }
+  };
 
   return (
+  
     <Container>
+    <Main>
       <Header />
-      <Main>
-        <ContainerPosts>
-          <Title>
-            <img src={userData.picture} alt="profile identification" />
-            <h1>{userData.username}'s posts</h1>
-          </Title>
-          {userData.posts.map((p, index) => (
+      <ContainerPosts>
+        <Title>
+          <img src={userData.picture} alt="profile identification" />
+          <h1>{userData.username}'s posts</h1>
+        </Title>
+        {userData.posts.map((p, index) => (
             <Post
               key={index}
+              userId={userData.id}
               picture={userData.picture}
-              name={userData.name}
+              name={userData.username}
               content={p.content}
               url={p.url}
+              likes={p.likes}
+              whoLiked={[p.whoLiked[0], p.whoLiked[1]]}
             />
-          ))}
-        </ContainerPosts>
-      </Main>
-      <Trending />
+        ))}
+      </ContainerPosts>
+    </Main>
+     <Trending />
     </Container>
   );
-}
+};
