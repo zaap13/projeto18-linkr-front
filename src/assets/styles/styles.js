@@ -102,6 +102,16 @@ export const Text = styled.p`
   color: #ffffff;
 `;
 
+export const UrlBox = styled.div`
+  width: 74%;
+  height: 50%;
+
+  @media (min-width: 768px) {
+    width: 82%;
+    height: 42%;
+  }
+`;
+
 export const CreationBox = styled.div`
   width: 100vw;
   min-height: fit-content;
@@ -229,8 +239,8 @@ export const PostCard = styled.div`
   div {
     display: flex;
     flex-direction: column;
-    height: 155px;
-    width: 500px;
+    /* height: 155px; */
+    /* width: 500px; */
     align-items: flex-start;
     justify-content: center;
     position: relative;
@@ -341,8 +351,8 @@ export const Container = styled.div`
 `;
 
 export const UrlImg = styled.img`
-  width: 150px;
-  height: 153px;
+  width: 34%;
+  height: 100%;
   border-radius: 0px 12px 13px 0px;
   position: absolute;
   right: 0;
