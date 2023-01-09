@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL, loading_url } from "../../constants/url";
-import { Main } from "../../assets/styles/styles";
+import { Container, Main } from "../../assets/styles/styles";
 import Header from "../../components/Header/Header";
 import Post from "../../components/Post";
 import { ContainerPosts, Gif, Title } from "./UserPageStyle";
+import Trending from "../../components/Trending";
 
 export default function UserPage() {
   let { id } = useParams();
@@ -43,6 +44,8 @@ export default function UserPage() {
   };
 
   return (
+  
+    <Container>
     <Main>
       <Header />
       <ContainerPosts>
@@ -64,5 +67,7 @@ export default function UserPage() {
         ))}
       </ContainerPosts>
     </Main>
+     <Trending />
+    </Container>
   );
 };
