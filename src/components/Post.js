@@ -6,7 +6,7 @@ import { BASE_URL } from "../constants/url";
 
 export default function Post({ post, deletePostFromState }) {
   const navigate = useNavigate();
-
+  const ownerName = JSON.parse(localStorage.getItem("linkr")).username;
   const {
     userId,
     username,
@@ -31,7 +31,9 @@ export default function Post({ post, deletePostFromState }) {
 
   return (
     <PostCard>
-      <FaTrash color="#FFFFFF" size="14px" onClick={deletePost} />
+      {ownerName === username && (
+        <FaTrash color="#FFFFFF" size="14px" onClick={deletePost} />
+      )}
       <Link to={`${BASE_URL}/user/${userId}`}>
         <UserImg src={picture} alt="profile" />
         <h1>{username}</h1>
