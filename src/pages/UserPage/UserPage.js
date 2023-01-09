@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL, loading_url } from "../../constants/url";
-import { Main } from "../../assets/styles/styles";
+import { Container, Main } from "../../assets/styles/styles";
 import Header from "../../components/Header/Header";
 import Post from "../../components/Post";
 import { ContainerPosts, Gif, Title } from "./UserPageStyle";
+import Trending from "../../components/Trending";
 
 export default function UserPage() {
   let { id } = useParams();
@@ -19,7 +20,7 @@ export default function UserPage() {
         Authorization: `Bearer ${user.token}`,
       },
     };
-    
+
     axios
       .get(`${BASE_URL}/user/${id}`, config)
       .then((res) => {
@@ -40,29 +41,23 @@ export default function UserPage() {
         </Gif>
       </Main>
     );
-  };
+  }
 
   return (
-    <Main>
-      <Header />
-      <ContainerPosts>
-        <Title>
-          <img src={userData.picture} alt="profile identification" />
-          <h1>{userData.username}'s posts</h1>
-        </Title>
-        {userData.posts.map((p, index) => (
-            <Post
-              key={index}
-              userId={userData.id}
-              picture={userData.picture}
-              name={userData.username}
-              content={p.content}
-              url={p.url}
-              likes={p.likes}
-              whoLiked={[p.whoLiked[0], p.whoLiked[1]]}
-            />
-        ))}
-      </ContainerPosts>
-    </Main>
+    <Container>
+      <Main>
+        <Header />
+        <ContainerPosts>
+          <Title>
+            <img src={userData.picture} alt="profile identification" />
+            <h1>{userData.username}'s posts</h1>
+          </Title>
+          {userData.posts.map((post) => (
+            <Post key={post.id} post={post} />
+          ))}
+        </ContainerPosts>
+      </Main>
+      <Trending />
+    </Container>
   );
-};
+}
