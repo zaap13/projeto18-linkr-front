@@ -288,7 +288,6 @@ export const Title = styled.h2`
   font-size: 33px;
   line-height: 49px;
   color: #ffffff;
-  margin: 0 15%;
 
   @media (min-width: 768px) {
     font-size: 43px;
@@ -337,6 +336,8 @@ export const TrendingStyle = styled.div`
 export const Container = styled.div`
   display: flex;
   margin-top: 72px;
+  align-items: flex-start;
+  justify-content: center;
 `;
 
 export const UrlImg = styled.img`
