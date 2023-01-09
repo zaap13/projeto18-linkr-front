@@ -105,6 +105,11 @@ export const Text = styled.p`
 export const UrlBox = styled.div`
   width: 74%;
   height: 50%;
+
+  @media (min-width: 768px) {
+    width: 82%;
+    height: 42%;
+  }
 `;
 
 export const CreationBox = styled.div`
