@@ -53,12 +53,14 @@ export default function Post({ post, deletePostFromState }) {
           <p>{content}</p>
         </ReactTagify>
       )}
-      <div>
-        <h2>{title}</h2>
-        <p>{description}</p>
-        <a href={url}>{url}</a>
-        <UrlImg src={image} alt="url image" />
-      </div>
+      <a href={url} target="_blank" rel="noreferrer noopener">
+        <div>
+          <h2>{title}</h2>
+          <p>{description}</p>
+          <h3>{url}</h3>
+          <UrlImg src={image} alt="url image" />
+        </div>
+      </a>
     </PostCard>
   );
 }

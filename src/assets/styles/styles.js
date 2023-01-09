@@ -253,7 +253,7 @@ export const PostCard = styled.div`
       color: #9b9595;
     }
 
-    a {
+    h3 {
       color: #cecece;
     }
   }
