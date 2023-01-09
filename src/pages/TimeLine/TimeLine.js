@@ -24,6 +24,21 @@ export default function TimeLine() {
   useEffect(() => {
     getPosts(setList);
   }, []);
+
+  function deletePostFromState(postId) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    axios.delete(`${BASE_URL}/posts/${postId}`, config)
+    .then(() => {
+      setList(postsList.filter(post => post.userId !== postId)); 
+    })
+    .catch(() => console.log("error"));
+  };
+
   return (
     <Container>
       <Header />
@@ -38,6 +53,8 @@ export default function TimeLine() {
             content={post.content}
             url={post.url}
             picture={post.picture}
+            post={post} 
+            deletePostFromState={deletePostFromState}
           />
         ))}
       </Main>
