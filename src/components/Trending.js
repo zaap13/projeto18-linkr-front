@@ -30,12 +30,13 @@ export default function Trending() {
         <h2>trending</h2>
       </div>
 
-      {trendingList.map((t) => (
+      {trendingList.map((t, i) => (
         <ReactTagify
+          key={i}
           colors={"white"}
           tagClicked={(tag) => navigate(`/hashtag/${tag.slice(1)}`)}
         >
-          <spam>{t.name}</spam>
+          <h3>{t.name}</h3>
         </ReactTagify>
       ))}
     </TrendingStyle>

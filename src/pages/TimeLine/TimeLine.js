@@ -49,10 +49,6 @@ export default function TimeLine() {
         {postsList.map((post) => (
           <Post
             key={post.id}
-            name={post.name}
-            content={post.content}
-            url={post.url}
-            picture={post.picture}
             post={post} 
             deletePostFromState={deletePostFromState}
           />

@@ -20,7 +20,7 @@ export default function UserPage() {
         Authorization: `Bearer ${user.token}`,
       },
     };
-    
+
     axios
       .get(`${BASE_URL}/user/${id}`, config)
       .then((res) => {
@@ -41,33 +41,23 @@ export default function UserPage() {
         </Gif>
       </Main>
     );
-  };
+  }
 
   return (
-  
     <Container>
-    <Main>
-      <Header />
-      <ContainerPosts>
-        <Title>
-          <img src={userData.picture} alt="profile identification" />
-          <h1>{userData.username}'s posts</h1>
-        </Title>
-        {userData.posts.map((p, index) => (
-            <Post
-              key={index}
-              userId={userData.id}
-              picture={userData.picture}
-              name={userData.username}
-              content={p.content}
-              url={p.url}
-              likes={p.likes}
-              whoLiked={[p.whoLiked[0], p.whoLiked[1]]}
-            />
-        ))}
-      </ContainerPosts>
-    </Main>
-     <Trending />
+      <Main>
+        <Header />
+        <ContainerPosts>
+          <Title>
+            <img src={userData.picture} alt="profile identification" />
+            <h1>{userData.username}'s posts</h1>
+          </Title>
+          {userData.posts.map((post) => (
+            <Post key={post.id} post={post} />
+          ))}
+        </ContainerPosts>
+      </Main>
+      <Trending />
     </Container>
   );
-};
+}

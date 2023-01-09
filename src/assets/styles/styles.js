@@ -307,7 +307,7 @@ export const TrendingStyle = styled.div`
     }
   }
 
-  spam {
+  h3 {
     font-size: 19px;
     line-height: 23px;
     letter-spacing: 0.05em;

@@ -7,9 +7,8 @@ import { BASE_URL } from "../../constants/url";
 import { Link } from "react-router-dom";
 
 export default function Search({value, onChange}) {
-    const [usersList, setUsersList] = useState([]); //salvar aqui a lista de usuarios que vai pegar do localstorage
+    const [usersList, setUsersList] = useState([]);
     const [display, setDisplay] = useState(false);
-    const [usersList, setUsersList] = useState(null);
 
     const [displayValue, setDisplayValue] = useState(value);
     const debouncedChange = useDebounce(onChange, 3000)
