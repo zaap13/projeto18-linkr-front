@@ -1,4 +1,4 @@
-import { PostCard, UrlImg, UserImg } from "../assets/styles/styles";
+import { PostCard, UrlBox, UrlImg, UserImg } from "../assets/styles/styles";
 import { ReactTagify } from "react-tagify";
 import { FaTrash } from "react-icons/fa";
 import { useNavigate, Link } from "react-router-dom";
@@ -56,12 +56,12 @@ export default function Post({ post, deletePostFromState }) {
         </ReactTagify>
       )}
       <a href={url} target="_blank" rel="noreferrer noopener">
-        <div>
+        <UrlBox>
           <h2>{title}</h2>
           <p>{description}</p>
           <h3>{url}</h3>
           <UrlImg src={image} alt="url image" />
-        </div>
+        </UrlBox>
       </a>
     </PostCard>
   );
