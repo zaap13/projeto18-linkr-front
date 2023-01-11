@@ -7,11 +7,18 @@ import {
   UserImg,
 } from "../assets/styles/styles";
 import { ReactTagify } from "react-tagify";
+
+import { AiOutlineHeart, AiOutlineComment } from "react-icons/ai";
+import { TbBrandTelegram } from "react-icons/tb";
+
 import { FaHeart, FaRegHeart, FaTrash, FaEdit } from "react-icons/fa";
+
 import { useNavigate, Link } from "react-router-dom";
 import { BASE_URL } from "../constants/url";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import { InputContainer, SearchButton } from "./Header/HeaderStyle";
+import { CommentContainer, CommentContent, CommentContentTitle, CommentsStyle, ContainerToComment, InputContainerToComment } from "./CommentsStyle";
 
 export default function Post({ post }) {
   const navigate = useNavigate();
@@ -127,6 +134,7 @@ export default function Post({ post }) {
         )}
 
         <p>{likes} likes</p>
+         <AiOutlineComment color="#FFFFFF" size="20px" />
       </LikeDiv>
 
       {whoLiked.length > 1 ? (
@@ -156,6 +164,7 @@ export default function Post({ post }) {
             >
               <p>{content}</p>
             </ReactTagify>
+
           )}
         </>
       )}
@@ -167,6 +176,32 @@ export default function Post({ post }) {
           <UrlImg src={image} alt="url image" />
         </UrlBox>
       </a>
+      
+       <CommentsStyle>
+        <div>
+          <CommentContainer>
+            <img src="https://br.mundo.com/fotos/201508/desenhos-2-600x559.jpg" alt="" />
+            <CommentContent>
+              <CommentContentTitle>
+                <h1>Nome de quem comentou </h1>
+                <span> * following/ * post's author ou não</span>
+              </CommentContentTitle>
+              <p>Comentário aqui</p>
+            </CommentContent>
+          </CommentContainer>
+        </div>
+
+        <ContainerToComment>
+          <img src="https://br.mundo.com/fotos/201508/desenhos-2-600x559.jpg" alt="profile" />
+          <InputContainerToComment>
+            <input type="search" placeholder="Write a comment..." />
+            <SearchButton type="submit">
+              <TbBrandTelegram size="20px" color="#C6C6C6" />
+            </SearchButton>
+          </InputContainerToComment>
+        </ContainerToComment>
+      </CommentsStyle>
     </PostCard>
+
   );
 }
