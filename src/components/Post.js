@@ -7,14 +7,13 @@ import {
   UserImg,
 } from "../assets/styles/styles";
 import { ReactTagify } from "react-tagify";
-import { FaHeart, FaRegHeart, FaTrash } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaTrash, FaEdit } from "react-icons/fa";
 import { useNavigate, Link } from "react-router-dom";
 import { BASE_URL } from "../constants/url";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Post({ post }) {
-
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("linkr"));
   const {
@@ -73,35 +72,48 @@ export default function Post({ post }) {
     }
   }
 
-      
-
   function updatePost(form) {
-    updatePostFromState(post.id, form);
-  };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    axios
+      .put(`${BASE_URL}/posts/${id}`, form, config)
+      .then(() => {
+        window.location.reload(false);
+      })
+      .catch(() => console.log("error"));
+  }
 
   function handleForm(e, form, setForm) {
     setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  }
 
   useEffect(() => {
     if (isEditing) {
       contentEdit.current.focus();
-    };
+    }
   }, [isEditing]);
 
   const iLiked = whoLiked?.find((i) => i.userId === user.id);
   const [liked, setLiked] = useState(iLiked);
   const [likes, setLikes] = useState(whoLiked.length);
 
+  console.log(user);
+
   return (
     <PostCard>
-
       {user.id === userId && (
         <ButtonDiv>
-          <FaTrash color="#FFFFFF" size="14px" onClick={deletePost} />
-          <FaEdit color="#FFFFFF" size="18px" onClick={() => setEditing(!isEditing)} />
+          <FaTrash color="#FFFFFF" size="18px" onClick={deletePost} />
+          <FaEdit
+            color="#FFFFFF"
+            size="18px"
+            onClick={() => setEditing(!isEditing)}
+          />
         </ButtonDiv>
-
       )}
       <Link to={`${BASE_URL}/user/${userId}`}>
         <UserImg src={picture} alt="profile" />
@@ -131,7 +143,7 @@ export default function Post({ post }) {
             <form onSubmit={() => updatePost(form)}>
               <input
                 onChange={(e) => handleForm(e, form, setForm)}
-                ref={contentEdit} 
+                ref={contentEdit}
                 name="content"
                 placeholder="Edit your article"
               />
@@ -139,11 +151,11 @@ export default function Post({ post }) {
             </form>
           ) : (
             <ReactTagify
-            colors={"white"}
-            tagClicked={(tag) => navigate(`/hashtag/${tag.slice(1)}`)}
-          >
-            <p>{content}</p>
-          </ReactTagify>
+              colors={"white"}
+              tagClicked={(tag) => navigate(`/hashtag/${tag.slice(1)}`)}
+            >
+              <p>{content}</p>
+            </ReactTagify>
           )}
         </>
       )}
