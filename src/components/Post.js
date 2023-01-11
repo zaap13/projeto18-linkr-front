@@ -8,7 +8,7 @@ import {
 } from "../assets/styles/styles";
 import { ReactTagify } from "react-tagify";
 
-import { AiOutlineHeart, AiOutlineComment } from "react-icons/ai";
+import { AiOutlineComment } from "react-icons/ai";
 import { TbBrandTelegram } from "react-icons/tb";
 
 import { FaHeart, FaRegHeart, FaTrash, FaEdit } from "react-icons/fa";
