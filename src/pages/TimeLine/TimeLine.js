@@ -19,7 +19,7 @@ export default function TimeLine() {
     });
     promise.then((resp) => setList(resp.data));
     promise.catch((error) => console.log(error));
-  }
+  };
 
   useEffect(() => {
     getPosts(setList);
@@ -39,10 +39,24 @@ export default function TimeLine() {
     .catch(() => console.log("error"));
   };
 
+  function updatePostFromState(postId, form) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    axios.put(`${BASE_URL}/posts/${postId}`, form, config)
+    .then((res) => {
+      console.log(res.data);
+      getPosts(setList);
+    })
+    .catch(() => console.log("error"));
+  };
+
   return (
     <Container>
       <Header />
-
       <Main>
         <Title>timeline</Title>
         <PostCreator setList={setList} getPosts={getPosts} />
@@ -51,6 +65,7 @@ export default function TimeLine() {
             key={post.id}
             post={post} 
             deletePostFromState={deletePostFromState}
+            updatePostFromState={updatePostFromState}
           />
         ))}
       </Main>
