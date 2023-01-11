@@ -14,6 +14,7 @@ import axios from "axios";
 import { useState } from "react";
 
 export default function Post({ post }) {
+
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("linkr"));
   const {
@@ -28,6 +29,9 @@ export default function Post({ post }) {
     image,
     whoLiked,
   } = post;
+  const contentEdit = useRef(null);
+  const [isEditing, setEditing] = useState(false);
+  const [form, setForm] = useState({ content: "" });
 
   const config = {
     headers: {
@@ -69,16 +73,35 @@ export default function Post({ post }) {
     }
   }
 
+      
+
+  function updatePost(form) {
+    updatePostFromState(post.id, form);
+  };
+
+  function handleForm(e, form, setForm) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  useEffect(() => {
+    if (isEditing) {
+      contentEdit.current.focus();
+    };
+  }, [isEditing]);
+
   const iLiked = whoLiked?.find((i) => i.userId === user.id);
   const [liked, setLiked] = useState(iLiked);
   const [likes, setLikes] = useState(whoLiked.length);
 
   return (
     <PostCard>
+
       {user.id === userId && (
         <ButtonDiv>
           <FaTrash color="#FFFFFF" size="14px" onClick={deletePost} />
+          <FaEdit color="#FFFFFF" size="18px" onClick={() => setEditing(!isEditing)} />
         </ButtonDiv>
+
       )}
       <Link to={`${BASE_URL}/user/${userId}`}>
         <UserImg src={picture} alt="profile" />
@@ -103,12 +126,26 @@ export default function Post({ post }) {
       )}
 
       {content && (
-        <ReactTagify
-          colors={"white"}
-          tagClicked={(tag) => navigate(`/hashtag/${tag.slice(1)}`)}
-        >
-          <p>{content}</p>
-        </ReactTagify>
+        <>
+          {isEditing ? (
+            <form onSubmit={() => updatePost(form)}>
+              <input
+                onChange={(e) => handleForm(e, form, setForm)}
+                ref={contentEdit} 
+                name="content"
+                placeholder="Edit your article"
+              />
+              <button type="submit"></button>
+            </form>
+          ) : (
+            <ReactTagify
+            colors={"white"}
+            tagClicked={(tag) => navigate(`/hashtag/${tag.slice(1)}`)}
+          >
+            <p>{content}</p>
+          </ReactTagify>
+          )}
+        </>
       )}
       <a href={url} target="_blank" rel="noreferrer noopener">
         <UrlBox>
