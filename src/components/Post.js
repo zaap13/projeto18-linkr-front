@@ -1,18 +1,30 @@
-import { PostCard, UrlBox, UrlImg, UserImg } from "../assets/styles/styles";
+import {
+  ButtonDiv,
+  LikeDiv,
+  PostCard,
+  UrlBox,
+  UrlImg,
+  UserImg,
+} from "../assets/styles/styles";
 import { ReactTagify } from "react-tagify";
-import { FaTrash, FaEdit } from "react-icons/fa";
+
 import { AiOutlineHeart, AiOutlineComment } from "react-icons/ai";
 import { TbBrandTelegram } from "react-icons/tb";
+
+import { FaHeart, FaRegHeart, FaTrash, FaEdit } from "react-icons/fa";
+
 import { useNavigate, Link } from "react-router-dom";
 import { BASE_URL } from "../constants/url";
+import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { InputContainer, SearchButton } from "./Header/HeaderStyle";
 import { CommentContainer, CommentContent, CommentContentTitle, CommentsStyle, ContainerToComment, InputContainerToComment } from "./CommentsStyle";
 
-export default function Post({ post, deletePostFromState, updatePostFromState }) {
+export default function Post({ post }) {
   const navigate = useNavigate();
-  const ownerName = JSON.parse(localStorage.getItem("linkr")).username;
+  const user = JSON.parse(localStorage.getItem("linkr"));
   const {
+    id,
     userId,
     username,
     picture,
@@ -21,93 +33,151 @@ export default function Post({ post, deletePostFromState, updatePostFromState })
     title,
     description,
     image,
-    likes,
     whoLiked,
   } = post;
   const contentEdit = useRef(null);
   const [isEditing, setEditing] = useState(false);
   const [form, setForm] = useState({ content: "" });
 
+  const config = {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  };
+
+  function likePost() {
+    axios
+      .post(`${BASE_URL}/posts/like/${id}`, {}, config)
+      .then(() => {
+        setLiked(true);
+        setLikes(likes + 1);
+      })
+      .catch((err) => console.log(err.message));
+  }
+
+  function unlikePost() {
+    axios
+      .delete(`${BASE_URL}/posts/like/${id}`, config)
+      .then(() => {
+        setLiked(false);
+        setLikes(likes - 1);
+      })
+      .catch((err) => console.log(err.message));
+  }
+
   function deletePost() {
     const confirmDelete = window.confirm(
       "Tem certeza que você quer excluir este post?"
     );
     if (confirmDelete) {
-      deletePostFromState(post.id);
-    };
-  };
+      axios
+        .delete(`${BASE_URL}/posts/${id}`, config)
+        .then(() => {
+          window.location.reload(false);
+        })
+        .catch(() => console.log("error"));
+    }
+  }
 
   function updatePost(form) {
-    updatePostFromState(post.id, form);
-  };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    axios
+      .put(`${BASE_URL}/posts/${id}`, form, config)
+      .then(() => {
+        window.location.reload(false);
+      })
+      .catch(() => console.log("error"));
+  }
 
   function handleForm(e, form, setForm) {
     setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  }
 
   useEffect(() => {
     if (isEditing) {
       contentEdit.current.focus();
-    };
+    }
   }, [isEditing]);
 
+  const iLiked = whoLiked?.find((i) => i.userId === user.id);
+  const [liked, setLiked] = useState(iLiked);
+  const [likes, setLikes] = useState(whoLiked.length);
+
+  console.log(user);
+
   return (
-    <>
-      <PostCard>
-        {ownerName === username && (
-          <>
-            <FaTrash color="#FFFFFF" size="14px" onClick={deletePost} />
-            <FaEdit color="#FFFFFF" size="18px" onClick={() => setEditing(!isEditing)} />
-          </>
-        )}
-        <AiOutlineHeart color="#FFFFFF" size="20px" />
-        <AiOutlineComment color="#FFFFFF" size="20px" />
-        <Link to={`${BASE_URL}/user/${userId}`}>
-          <UserImg src={picture} alt="profile" />
-          <h1>{username}</h1>
-        </Link>
-        <p>{likes} likes</p>
-        {likes > 1 ? (
-          <p>
-            {whoLiked[0]} e outras {likes - 1} pessoas
-          </p>
+    <PostCard>
+      {user.id === userId && (
+        <ButtonDiv>
+          <FaTrash color="#FFFFFF" size="18px" onClick={deletePost} />
+          <FaEdit
+            color="#FFFFFF"
+            size="18px"
+            onClick={() => setEditing(!isEditing)}
+          />
+        </ButtonDiv>
+      )}
+      <Link to={`${BASE_URL}/user/${userId}`}>
+        <UserImg src={picture} alt="profile" />
+        <h1>{username}</h1>
+      </Link>
+      <LikeDiv>
+        {liked ? (
+          <FaHeart color="#AC0000" size="20px" onClick={() => unlikePost()} />
         ) : (
-          whoLiked && <p>{whoLiked[0]}</p>
+          <FaRegHeart size="20px" onClick={() => likePost()} />
         )}
 
-        {content && (
-          <>
-            {isEditing ? (
-              <form onSubmit={() => updatePost(form)}>
-                <input
-                  onChange={(e) => handleForm(e, form, setForm)}
-                  ref={contentEdit} 
-                  name="content"
-                  placeholder="Edit your article"
-                />
-                <button type="submit"></button>
-              </form>
-            ) : (
-              <ReactTagify
+        <p>{likes} likes</p>
+         <AiOutlineComment color="#FFFFFF" size="20px" />
+      </LikeDiv>
+
+      {whoLiked.length > 1 ? (
+        <p>
+          {whoLiked[0]?.username} e outras {likes - 1} pessoas
+        </p>
+      ) : (
+        <p>{whoLiked[0]?.username}</p>
+      )}
+
+      {content && (
+        <>
+          {isEditing ? (
+            <form onSubmit={() => updatePost(form)}>
+              <input
+                onChange={(e) => handleForm(e, form, setForm)}
+                ref={contentEdit}
+                name="content"
+                placeholder="Edit your article"
+              />
+              <button type="submit"></button>
+            </form>
+          ) : (
+            <ReactTagify
               colors={"white"}
               tagClicked={(tag) => navigate(`/hashtag/${tag.slice(1)}`)}
             >
               <p>{content}</p>
             </ReactTagify>
-            )}
-          </>
-        )}
-        <a href={url} target="_blank" rel="noreferrer noopener">
-          <UrlBox>
-            <h2>{title}</h2>
-            <p>{description}</p>
-            <h3>{url}</h3>
-            <UrlImg src={image} alt="url image" />
-          </UrlBox>
-        </a>
-      </PostCard>
 
-      <CommentsStyle>
+          )}
+        </>
+      )}
+      <a href={url} target="_blank" rel="noreferrer noopener">
+        <UrlBox>
+          <h2>{title}</h2>
+          <p>{description}</p>
+          <h3>{url}</h3>
+          <UrlImg src={image} alt="url image" />
+        </UrlBox>
+      </a>
+      
+       <CommentsStyle>
         <div>
           <CommentContainer>
             <img src="https://br.mundo.com/fotos/201508/desenhos-2-600x559.jpg" alt="" />
@@ -131,6 +201,7 @@ export default function Post({ post, deletePostFromState, updatePostFromState })
           </InputContainerToComment>
         </ContainerToComment>
       </CommentsStyle>
-    </>
+    </PostCard>
+
   );
 }

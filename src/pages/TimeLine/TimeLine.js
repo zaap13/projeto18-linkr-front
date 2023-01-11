@@ -19,40 +19,11 @@ export default function TimeLine() {
     });
     promise.then((resp) => setList(resp.data));
     promise.catch((error) => console.log(error));
-  };
+  }
 
   useEffect(() => {
     getPosts(setList);
   }, []);
-
-  function deletePostFromState(postId) {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    };
-
-    axios.delete(`${BASE_URL}/posts/${postId}`, config)
-    .then(() => {
-      setList(postsList.filter(post => post.userId !== postId)); 
-    })
-    .catch(() => console.log("error"));
-  };
-
-  function updatePostFromState(postId, form) {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    };
-
-    axios.put(`${BASE_URL}/posts/${postId}`, form, config)
-    .then((res) => {
-      console.log(res.data);
-      getPosts(setList);
-    })
-    .catch(() => console.log("error"));
-  };
 
   return (
     <Container>
@@ -61,12 +32,7 @@ export default function TimeLine() {
         <Title>timeline</Title>
         <PostCreator setList={setList} getPosts={getPosts} />
         {postsList.map((post) => (
-          <Post
-            key={post.id}
-            post={post} 
-            deletePostFromState={deletePostFromState}
-            updatePostFromState={updatePostFromState}
-          />
+          <Post key={post.id} post={post} />
         ))}
       </Main>
       <Trending />
