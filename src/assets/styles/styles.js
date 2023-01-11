@@ -103,8 +103,33 @@ export const Text = styled.p`
 `;
 
 export const UrlBox = styled.div`
-  width: 74%;
-  height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  padding: 10px;
+  padding-right: 155px;
+  gap: 5px;
+
+  border: 1px solid #4d4d4d;
+  border-radius: 11px;
+
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 400;
+  color: #cecece;
+  h2 {
+    font-size: 16px;
+    line-height: 19px;
+  }
+  p {
+    color: #9b9595;
+  }
+
+  h3 {
+    color: #cecece;
+  }
 
   @media (min-width: 768px) {
     width: 82%;
@@ -236,38 +261,6 @@ export const PostCard = styled.div`
     color: #b7b7b7;
   }
 
-  div {
-    display: flex;
-    flex-direction: column;
-    /* height: 155px; */
-    /* width: 500px; */
-    align-items: flex-start;
-    justify-content: center;
-    position: relative;
-    padding: 10px;
-    padding-right: 155px;
-    gap: 5px;
-
-    border: 1px solid #4d4d4d;
-    border-radius: 11px;
-
-    font-size: 11px;
-    line-height: 13px;
-    font-weight: 400;
-    color: #cecece;
-    h2 {
-      font-size: 16px;
-      line-height: 19px;
-    }
-    p {
-      color: #9b9595;
-    }
-
-    h3 {
-      color: #cecece;
-    }
-  }
-
   @media (min-width: 768px) {
     width: 611px;
 
@@ -359,8 +352,8 @@ export const UrlImg = styled.img`
 `;
 
 export const UserImg = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 
   position: absolute;
   top: 10px;
@@ -370,7 +363,33 @@ export const UserImg = styled.img`
   border-radius: 26.5px;
 
   @media (min-width: 768px) {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
   }
+`;
+
+export const ButtonDiv = styled.div`
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+`;
+
+export const LikeDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 50px;
+  align-items: center;
+  justify-content: center;
+  top: 80px;
+  left: 10px;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
+  cursor: pointer;
+
+  color: #ffffff;
 `;
