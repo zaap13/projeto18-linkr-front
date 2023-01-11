@@ -25,19 +25,7 @@ export default function TimeLine() {
     getPosts(setList);
   }, []);
 
-  function deletePostFromState(postId) {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    };
 
-    axios.delete(`${BASE_URL}/posts/${postId}`, config)
-    .then(() => {
-      setList(postsList.filter(post => post.userId !== postId)); 
-    })
-    .catch(() => console.log("error"));
-  };
 
   function updatePostFromState(postId, form) {
     const config = {
@@ -64,7 +52,6 @@ export default function TimeLine() {
           <Post
             key={post.id}
             post={post} 
-            deletePostFromState={deletePostFromState}
             updatePostFromState={updatePostFromState}
           />
         ))}

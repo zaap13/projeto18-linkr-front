@@ -1,14 +1,24 @@
-import { PostCard, UrlBox, UrlImg, UserImg } from "../assets/styles/styles";
+import {
+  ButtonDiv,
+  LikeDiv,
+  PostCard,
+  UrlBox,
+  UrlImg,
+  UserImg,
+} from "../assets/styles/styles";
 import { ReactTagify } from "react-tagify";
-import { FaTrash, FaEdit } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaTrash } from "react-icons/fa";
 import { useNavigate, Link } from "react-router-dom";
 import { BASE_URL } from "../constants/url";
-import { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { useState } from "react";
 
-export default function Post({ post, deletePostFromState, updatePostFromState }) {
+export default function Post({ post }) {
+
   const navigate = useNavigate();
-  const ownerName = JSON.parse(localStorage.getItem("linkr")).username;
+  const user = JSON.parse(localStorage.getItem("linkr"));
   const {
+    id,
     userId,
     username,
     picture,
@@ -17,21 +27,53 @@ export default function Post({ post, deletePostFromState, updatePostFromState })
     title,
     description,
     image,
-    likes,
     whoLiked,
   } = post;
   const contentEdit = useRef(null);
   const [isEditing, setEditing] = useState(false);
   const [form, setForm] = useState({ content: "" });
 
+  const config = {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  };
+
+  function likePost() {
+    axios
+      .post(`${BASE_URL}/posts/like/${id}`, {}, config)
+      .then(() => {
+        setLiked(true);
+        setLikes(likes + 1);
+      })
+      .catch((err) => console.log(err.message));
+  }
+
+  function unlikePost() {
+    axios
+      .delete(`${BASE_URL}/posts/like/${id}`, config)
+      .then(() => {
+        setLiked(false);
+        setLikes(likes - 1);
+      })
+      .catch((err) => console.log(err.message));
+  }
+
   function deletePost() {
     const confirmDelete = window.confirm(
       "Tem certeza que você quer excluir este post?"
     );
     if (confirmDelete) {
-      deletePostFromState(post.id);
-    };
-  };
+      axios
+        .delete(`${BASE_URL}/posts/${id}`, config)
+        .then(() => {
+          window.location.reload(false);
+        })
+        .catch(() => console.log("error"));
+    }
+  }
+
+      
 
   function updatePost(form) {
     updatePostFromState(post.id, form);
@@ -47,25 +89,40 @@ export default function Post({ post, deletePostFromState, updatePostFromState })
     };
   }, [isEditing]);
 
+  const iLiked = whoLiked?.find((i) => i.userId === user.id);
+  const [liked, setLiked] = useState(iLiked);
+  const [likes, setLikes] = useState(whoLiked.length);
+
   return (
     <PostCard>
-      {ownerName === username && (
-        <>
+
+      {user.id === userId && (
+        <ButtonDiv>
           <FaTrash color="#FFFFFF" size="14px" onClick={deletePost} />
           <FaEdit color="#FFFFFF" size="18px" onClick={() => setEditing(!isEditing)} />
-        </>
+        </ButtonDiv>
+
       )}
       <Link to={`${BASE_URL}/user/${userId}`}>
         <UserImg src={picture} alt="profile" />
         <h1>{username}</h1>
       </Link>
-      <p>{likes} likes</p>
-      {likes > 1 ? (
+      <LikeDiv>
+        {liked ? (
+          <FaHeart color="#AC0000" size="20px" onClick={() => unlikePost()} />
+        ) : (
+          <FaRegHeart size="20px" onClick={() => likePost()} />
+        )}
+
+        <p>{likes} likes</p>
+      </LikeDiv>
+
+      {whoLiked.length > 1 ? (
         <p>
-          {whoLiked[0]} e outras {likes - 1} pessoas
+          {whoLiked[0]?.username} e outras {likes - 1} pessoas
         </p>
       ) : (
-        whoLiked && <p>{whoLiked[0]}</p>
+        <p>{whoLiked[0]?.username}</p>
       )}
 
       {content && (
