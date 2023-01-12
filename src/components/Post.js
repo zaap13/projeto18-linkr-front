@@ -17,8 +17,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { BASE_URL } from "../constants/url";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { InputContainer, SearchButton } from "./Header/HeaderStyle";
-import { CommentContainer, CommentContent, CommentContentTitle, CommentsStyle, ContainerToComment, InputContainerToComment } from "./CommentsStyle";
+import { SearchButton } from "./Header/HeaderStyle";
+import { CommentContainer, CommentContent, CommentContentTitle, CommentsStyle, ContainerToComment, EditInput, InputContainerToComment } from "./CommentsStyle";
 
 export default function Post({ post }) {
   const navigate = useNavigate();
@@ -108,100 +108,98 @@ export default function Post({ post }) {
   const [liked, setLiked] = useState(iLiked);
   const [likes, setLikes] = useState(whoLiked.length);
 
-  console.log(user);
-
   return (
-    <PostCard>
-      {user.id === userId && (
-        <ButtonDiv>
-          <FaTrash color="#FFFFFF" size="18px" onClick={deletePost} />
-          <FaEdit
-            color="#FFFFFF"
-            size="18px"
-            onClick={() => setEditing(!isEditing)}
-          />
-        </ButtonDiv>
-      )}
-      <Link to={`${BASE_URL}/user/${userId}`}>
-        <UserImg src={picture} alt="profile" />
-        <h1>{username}</h1>
-      </Link>
-      <LikeDiv>
-        {liked ? (
-          <FaHeart color="#AC0000" size="20px" onClick={() => unlikePost()} />
+    <>
+      <PostCard>
+        {user.id === userId && (
+          <ButtonDiv>
+            <FaEdit
+              color="#FFFFFF"
+              size="18px"
+              onClick={() => setEditing(!isEditing)}
+            />
+            <FaTrash color="#FFFFFF" size="17px" onClick={deletePost} />
+          </ButtonDiv>
+        )}
+        <Link to={`${BASE_URL}/user/${userId}`}>
+          <UserImg src={picture} alt="profile" />
+          <h1>{username}</h1>
+        </Link>
+        <LikeDiv>
+          {liked ? (
+            <FaHeart color="#AC0000" size="20px" onClick={() => unlikePost()} />
+          ) : (
+            <FaRegHeart size="20px" onClick={() => likePost()} />
+          )}
+
+          <p>{likes} likes</p>
+          <AiOutlineComment color="#FFFFFF" size="20px" />
+        </LikeDiv>
+
+        {whoLiked.length > 1 ? (
+          <p>
+            {whoLiked[0]?.username} e outras {likes - 1} pessoas
+          </p>
         ) : (
-          <FaRegHeart size="20px" onClick={() => likePost()} />
+          <p>{whoLiked[0]?.username}</p>
         )}
 
-        <p>{likes} likes</p>
-         <AiOutlineComment color="#FFFFFF" size="20px" />
-      </LikeDiv>
+        {content && (
+          <>
+            {isEditing ? (
+              <form onSubmit={() => updatePost(form)}>
+                <EditInput
+                  onChange={(e) => handleForm(e, form, setForm)}
+                  ref={contentEdit}
+                  name="content"
+                  placeholder="Edit your article"
+                />
+                <button type="submit"></button>
+              </form>
+            ) : (
+              <ReactTagify
+                colors={"white"}
+                tagClicked={(tag) => navigate(`/hashtag/${tag.slice(1)}`)}
+              >
+                <p>{content}</p>
+              </ReactTagify>
+            )}
+          </>
+        )}
+        <a href={url} target="_blank" rel="noreferrer noopener">
+          <UrlBox>
+            <h2>{title}</h2>
+            <p>{description}</p>
+            <h3>{url}</h3>
+            <UrlImg src={image} alt="url image" />
+          </UrlBox>
+        </a>
+      </PostCard>
 
-      {whoLiked.length > 1 ? (
-        <p>
-          {whoLiked[0]?.username} e outras {likes - 1} pessoas
-        </p>
-      ) : (
-        <p>{whoLiked[0]?.username}</p>
-      )}
+    <CommentsStyle>
+      <div>
+        <CommentContainer>
+          <img src="https://br.mundo.com/fotos/201508/desenhos-2-600x559.jpg" alt="" />
+          <CommentContent>
+            <CommentContentTitle>
+              <h1>Nome de quem comentou </h1>
+              <span> * following/ * post's author ou não</span>
+            </CommentContentTitle>
+            <p>Comentário aqui</p>
+          </CommentContent>
+        </CommentContainer>
+      </div>
 
-      {content && (
-        <>
-          {isEditing ? (
-            <form onSubmit={() => updatePost(form)}>
-              <input
-                onChange={(e) => handleForm(e, form, setForm)}
-                ref={contentEdit}
-                name="content"
-                placeholder="Edit your article"
-              />
-              <button type="submit"></button>
-            </form>
-          ) : (
-            <ReactTagify
-              colors={"white"}
-              tagClicked={(tag) => navigate(`/hashtag/${tag.slice(1)}`)}
-            >
-              <p>{content}</p>
-            </ReactTagify>
-
-          )}
-        </>
-      )}
-      <a href={url} target="_blank" rel="noreferrer noopener">
-        <UrlBox>
-          <h2>{title}</h2>
-          <p>{description}</p>
-          <h3>{url}</h3>
-          <UrlImg src={image} alt="url image" />
-        </UrlBox>
-      </a>
-      
-       <CommentsStyle>
-        <div>
-          <CommentContainer>
-            <img src="https://br.mundo.com/fotos/201508/desenhos-2-600x559.jpg" alt="" />
-            <CommentContent>
-              <CommentContentTitle>
-                <h1>Nome de quem comentou </h1>
-                <span> * following/ * post's author ou não</span>
-              </CommentContentTitle>
-              <p>Comentário aqui</p>
-            </CommentContent>
-          </CommentContainer>
-        </div>
-
-        <ContainerToComment>
-          <img src="https://br.mundo.com/fotos/201508/desenhos-2-600x559.jpg" alt="profile" />
-          <InputContainerToComment>
-            <input type="search" placeholder="Write a comment..." />
-            <SearchButton type="submit">
-              <TbBrandTelegram size="20px" color="#C6C6C6" />
-            </SearchButton>
-          </InputContainerToComment>
-        </ContainerToComment>
-      </CommentsStyle>
-    </PostCard>
-
+      <ContainerToComment>
+        <img src="https://br.mundo.com/fotos/201508/desenhos-2-600x559.jpg" alt="profile" />
+        <InputContainerToComment>
+          <input type="search" placeholder="Write a comment..." />
+          <SearchButton type="submit">
+            <TbBrandTelegram size="20px" color="#C6C6C6" />
+          </SearchButton>
+        </InputContainerToComment>
+      </ContainerToComment>
+    </CommentsStyle>
+  </>
   );
 }
