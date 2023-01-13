@@ -235,8 +235,6 @@ export const PostCard = styled.div`
   width: 100%;
   min-height: 200px;
 
-  margin: 2vh auto;
-
   padding: 10px;
   padding-left: 65px;
   background-color: #171717;
@@ -370,6 +368,8 @@ export const UserImg = styled.img`
 
 export const ButtonDiv = styled.div`
   display: flex;
+  align-items: center;
+  gap: 7px;
   position: absolute;
   top: 0;
   right: 0;

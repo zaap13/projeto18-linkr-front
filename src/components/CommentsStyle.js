@@ -1,10 +1,34 @@
 import styled from "styled-components";
 
+export const EditInput = styled.input`
+    background-color: #FFFFFF;
+    border-radius: 7px;
+
+    width: 100%;
+
+    font-size: 14px;
+    color: #4C4C4C;
+
+    ::placeholder {
+        padding-left: 5px;
+
+        font-size: 14px;
+        font-style: italic;
+        color: #575757;
+    }
+`;
+
 export const CommentsStyle = styled.div`
     background-color: #1E1E1E;
     border-radius: 0 0 16px 16px;
+    margin: -12px 0 40px 0;
+    padding-top: 12px;
 
     width: 611px;
+
+    @media (max-width: 767px) {
+        width: 100%;
+    }
 `;
 
 export const CommentContainer = styled.div`
@@ -46,7 +70,7 @@ export const CommentContentTitle = styled.div`
     }
 
     span {
-        font-size: 14.5px;
+        font-size: 16px;
         color: #565656;
     }
 `;
