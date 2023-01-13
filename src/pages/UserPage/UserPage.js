@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL, loading_url } from "../../constants/url";
 import { Container, Main } from "../../assets/styles/styles";
+import { ContainerPosts, Gif, Title } from "./UserPageStyle";
 import Header from "../../components/Header/Header";
 import Post from "../../components/Post";
-import { ContainerPosts, Gif, Title } from "./UserPageStyle";
 import Trending from "../../components/Trending";
 
 export default function UserPage() {
@@ -26,9 +26,10 @@ export default function UserPage() {
       .then((res) => {
         setUserData(res.data);
         setLoading(false);
+        console.log(res.data)
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.data);
       });
   }, []);
 
@@ -44,6 +45,23 @@ export default function UserPage() {
   }
 
   return (
+
+    // <Container>
+    //   <Header>
+    //     <Main>
+    //       <ContainerPosts>
+    //         <Title>
+    //           <img src={userData.picture} alt="profile identification" />
+    //           <h1>{userData.username}'s posts</h1>
+    //         </Title>
+    //         {userData.posts.map((post) => (
+    //           <Post key={post.id} post={post} />
+    //         ))}
+    //       </ContainerPosts>
+    //     </Main>
+    //     <Trending/>
+    //   </Header>
+    // </Container>
     <Container>
       <Main>
         <Header />

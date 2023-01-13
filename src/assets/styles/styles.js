@@ -279,8 +279,12 @@ export const PostCard = styled.div`
 export const Main = styled.main`
   display: flex;
   min-height: 100vh;
+  align-items: center;
   flex-wrap: nowrap;
   flex-direction: column;
+  @media (max-width: 768px) {
+    width: 100vw;
+  }
 `;
 
 export const Title = styled.h2`
@@ -289,6 +293,8 @@ export const Title = styled.h2`
   font-size: 33px;
   line-height: 49px;
   color: #ffffff;
+  margin-top: 45px;
+  width: 100%;
 
   @media (min-width: 768px) {
     font-size: 43px;
@@ -308,7 +314,7 @@ export const TrendingStyle = styled.div`
   font-weight: 700;
   color: #ffffff;
   gap: 5px;
-  margin: 85px 20px;
+  margin: 153px 20px;
 
   div {
     height: 40px;
@@ -393,3 +399,13 @@ export const LikeDiv = styled.div`
 
   color: #ffffff;
 `;
+
+export const Gif = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+img {
+    width: 80px;
+}
+`

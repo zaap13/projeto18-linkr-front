@@ -1,4 +1,4 @@
-import { InputContainer, SearchButton, SearchContainer, SearchUserList, UserAlreadySearched } from "./HeaderStyle";
+import { InputContainer, SearchButton, SearchContainer, SearchUserList, UsersSearched, UserSearched } from "./HeaderStyle";
 import { GoSearch } from "react-icons/go";
 import { useState } from "react";
 import axios from "axios";
@@ -30,7 +30,7 @@ export default function Search() {
                 Authorization: `Bearer ${user.token}`,
             },
         };
-
+        console.log(user)
         axios
             .get(`${BASE_URL}/search/${input}`, config)
             .then((res) => {
@@ -61,15 +61,17 @@ export default function Search() {
                     display={usersList.length !== 0 && display === true ? "flex" : "none"}
                 >
                     {usersList.map((user, index) => (
-                        <UserAlreadySearched key={index} >
-                            <Link to={`${ BASE_URL }/user/${user.id}`}>
-                                <img
-                                    src={user.picture}
-                                    alt="profile"
-                                />
-                                <p>{user.username}</p>
+                        <UsersSearched key={index} >
+                            <Link to={`/user/${user.id}`}>
+                                <UserSearched>
+                                    <img
+                                        src={user.picture}
+                                        alt="profile"
+                                    />
+                                    <p>{user.username}</p>
+                                </UserSearched>
                             </Link>
-                        </UserAlreadySearched>
+                        </UsersSearched>
                     ))}
                 </SearchUserList>
             }

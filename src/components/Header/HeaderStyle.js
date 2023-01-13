@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { logoFont } from "../../constants/fonts";
+import { logoFont, mainFont } from "../../constants/fonts";
 
 const HeaderStyle = styled.nav`
   background-color: #151515;
   padding: 0 0 0 15px;
 
-  width: 100%;
+  width: 100vw;
   height: 72px;
 
   display: flex;
@@ -28,9 +28,11 @@ const HeaderStyle = styled.nav`
 
 const SearchContainer = styled.div`
   margin: 0 10px;
-
   width: 563px;
   height: 45px;
+@media (max-width: 768px) {
+    width: 52vw;
+}
 `;
 
 const InputContainer = styled.div`
@@ -77,15 +79,18 @@ const SearchUserList = styled.div`
   border-radius: 0 0 8px 8px;
   margin-top: -10px;
   padding-top: 10px;
+  display: flex;
+  flex-direction: column;
 
   display: ${(props) => props.display};
 `;
 
-const UserAlreadySearched = styled.div`
+const UsersSearched = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
 
+  width: 100%;
   height: 67px;
 
   padding-left: 17px;
@@ -98,8 +103,10 @@ const UserAlreadySearched = styled.div`
   }
 
   p {
+    font-family: ${mainFont};
     font-size: 19px;
     color: #515151;
+    word-break: break-word;
   }
 `;
 
@@ -149,14 +156,24 @@ const LogoutText = styled.button`
     }
 `;
 
+const UserSearched = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+img {
+  margin-right: 10px;
+}
+`
+
 export {
   HeaderStyle,
   SearchContainer,
   InputContainer,
   SearchButton,
   SearchUserList,
-  UserAlreadySearched,
+  UsersSearched,
   LogoutContainer,
   IconImageProfile,
-  LogoutText
+  LogoutText,
+  UserSearched
 };
