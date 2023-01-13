@@ -90,7 +90,7 @@ export const ContainerToComment = styled.div`
     }
 `;
 
-export const InputContainerToComment = styled.div`
+export const InputContainerToComment = styled.form`
     width: 100%;
     height: 39px;
 

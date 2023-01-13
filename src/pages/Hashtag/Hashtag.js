@@ -29,8 +29,8 @@ export default function Hashtag() {
       <Header />
       <Main>
         <Title>#{hashtag}</Title>
-        {postsList.map((post) => (
-          <Post key={post.id} post={post} />
+        {postsList.map((post, i) => (
+          <Post key={i} post={post} />
         ))}
       </Main>
       <Trending />

@@ -90,8 +90,8 @@ export default function UserPage() {
               {isFollowed === true ? <p>Unfollow</p> : <p>Follow</p>}
             </button>
           </Title>
-          {userData.posts.map((post, index) => (
-            <Post key={index} post={post} />
+          {userData.posts.map((post, i) => (
+            <Post key={i} post={post} />
           ))}
         </ContainerPosts>
       </Main>

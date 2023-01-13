@@ -47,8 +47,8 @@ export default function TimeLine() {
       <Main>
         <Title>timeline</Title>
         <PostCreator setList={setList} getPosts={getPosts} />
-        {postsList.map((post, index) => (
-          <Post key={index} post={post} />
+        {postsList.map((post, i) => (
+          <Post key={i} post={post} />
         ))}
       </Main>
       <Trending />

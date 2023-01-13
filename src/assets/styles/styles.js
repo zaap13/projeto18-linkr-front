@@ -151,7 +151,7 @@ export const CreationBox = styled.div`
   position: relative;
 
   padding: 10px;
-  padding-left: 70px;
+  padding-left: 110px;
 
   background-color: #ffff;
 
@@ -233,10 +233,10 @@ export const CreationBox = styled.div`
 
 export const PostCard = styled.div`
   width: 100%;
-  min-height: 200px;
+  min-height: 300px;
 
   padding: 10px;
-  padding-left: 65px;
+  padding-left: 110px;
   background-color: #171717;
 
   position: relative;
@@ -273,6 +273,28 @@ export const PostCard = styled.div`
       font-size: 17px;
       line-height: 20px;
     }
+  }
+`;
+
+export const Repost = styled.div`
+  display: flex;
+  background-color: #1e1e1e;
+  width: 100%;
+  height: 34px;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  align-items: flex-start;
+  padding: 4px 16px;
+
+  color: #ffffff;
+
+  @media (min-width: 768px) {
+    width: 611px;
+
+    border-radius: 16px 16px 0 0;
+    margin: 0 0 -12px 0;
+
   }
 `;
 
@@ -359,10 +381,6 @@ export const UserImg = styled.img`
   width: 40px;
   height: 40px;
 
-  position: absolute;
-  top: 10px;
-  left: 10px;
-
   background-color: #ffff;
   border-radius: 26.5px;
 
@@ -386,10 +404,10 @@ export const LikeDiv = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
-  width: 50px;
+  width: fit-content;
   align-items: center;
-  justify-content: center;
-  top: 80px;
+  justify-content: flex-start;
+  top: 25px;
   left: 10px;
   font-weight: 400;
   font-size: 11px;
