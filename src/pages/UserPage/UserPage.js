@@ -12,26 +12,46 @@ export default function UserPage() {
   let { id } = useParams();
   const [userData, setUserData] = useState("");
   const [loading, setLoading] = useState(true);
+  const [isFollowed, setIsFollowed] = useState(null);
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("linkr"));
+  const user = JSON.parse(localStorage.getItem("linkr"));
     const config = {
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
     };
 
+  useEffect(() => {
     axios
       .get(`${BASE_URL}/user/${id}`, config)
       .then((res) => {
         setUserData(res.data);
         setLoading(false);
+        //setisfollowing
         console.log(res.data)
       })
       .catch((err) => {
         console.log(err.data);
       });
   }, []);
+
+  function follow () {
+
+    if (isFollowed === false) {
+      axios
+      .post(`${BASE_URL}/user/follow/${id}`, config)
+      .then(() => setIsFollowed(true))
+      .catch((err) => console.log(err.data))
+    };
+
+    if (isFollowed === true) {
+      axios
+      .delete(`${BASE_URL}/user/follow/${id}`, config)
+      .then(() => setIsFollowed(true))
+      .catch((err) => console.log(err.data))
+    };
+
+  };
 
   if (loading === true) {
     return (
@@ -45,23 +65,6 @@ export default function UserPage() {
   }
 
   return (
-
-    // <Container>
-    //   <Header>
-    //     <Main>
-    //       <ContainerPosts>
-    //         <Title>
-    //           <img src={userData.picture} alt="profile identification" />
-    //           <h1>{userData.username}'s posts</h1>
-    //         </Title>
-    //         {userData.posts.map((post) => (
-    //           <Post key={post.id} post={post} />
-    //         ))}
-    //       </ContainerPosts>
-    //     </Main>
-    //     <Trending/>
-    //   </Header>
-    // </Container>
     <Container>
       <Main>
         <Header />
@@ -69,6 +72,9 @@ export default function UserPage() {
           <Title>
             <img src={userData.picture} alt="profile identification" />
             <h1>{userData.username}'s posts</h1>
+            <button onClick={() => follow}>
+              {isFollowed === true ? <p>Unfollow</p> : <p>Follow</p>}
+            </button>
           </Title>
           {userData.posts.map((post) => (
             <Post key={post.id} post={post} />

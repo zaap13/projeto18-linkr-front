@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { titleFont } from "../../constants/fonts";
+import { titleFont, mainFont } from "../../constants/fonts";
 
 const ContainerPosts = styled.div`
     display: flex;
@@ -41,6 +41,14 @@ h1 {
         font-size: 33px;
     }
 }
+button {
+    font-family: ${mainFont};
+    font-size: 14px;
+    color: #FFFFFF;
+    background-color: #1877F2;
+    width: 112px;
+    height: 31px;
+};
 `
 
 export { ContainerPosts, Gif, Title };
