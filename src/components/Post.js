@@ -63,6 +63,10 @@ export default function Post({ post }) {
 
   console.log(post)
   console.log(comments[0]?.comment);
+  console.log(comments[0]?.username);
+  comments?.forEach(element => {
+    console.log(element)
+  });
 
   const config = {
     headers: {
@@ -146,7 +150,7 @@ export default function Post({ post }) {
 
     const body = {
       content: contentPost,
-      userId: userId
+      userId: user.id
     };
 
     const config = {
@@ -283,26 +287,25 @@ export default function Post({ post }) {
       </PostCard>
 
       <CommentsStyle>
-        {/* {comments?.map((comment, index) => ( */}
-          <CommentContainer /* key={index} */>
+        {comments?.map((comment, index) => (
+          <CommentContainer key={index}>
             <img
               src="https://br.mundo.com/fotos/201508/desenhos-2-600x559.jpg"
-              alt=""
+              alt="who comment"
             />
             <CommentContent>
               <CommentContentTitle>
-                <h1>Nome de quem comentou </h1>
+                <h1>{comment.username}</h1>
                 <span> * following/ * post's author ou não</span>
               </CommentContentTitle>
-              <p>comentário</p>
+              <p>{comment.comment}</p>
             </CommentContent>
           </CommentContainer>
-        {/* ))} */}
-        
+        ))}
 
         <ContainerToComment>
           <img
-            src="https://br.mundo.com/fotos/201508/desenhos-2-600x559.jpg"
+            src={user.picture}
             alt="profile"
           />
           <InputContainerToComment onSubmit={commentPostForm}>
