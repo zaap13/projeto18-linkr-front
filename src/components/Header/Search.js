@@ -62,7 +62,7 @@ export default function Search() {
                 >
                     {usersList.map((user, index) => (
                         <UserAlreadySearched key={index} >
-                            <Link to={`${ BASE_URL }/user/${user.id}`}>
+                            <Link to={`/user/${user.id}`}>
                                 <img
                                     src={user.picture}
                                     alt="profile"
