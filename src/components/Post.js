@@ -108,8 +108,6 @@ export default function Post({ post }) {
   const [liked, setLiked] = useState(iLiked);
   const [likes, setLikes] = useState(whoLiked.length);
 
-  console.log(user);
-
   return (
     <PostCard>
       {user.id === userId && (
