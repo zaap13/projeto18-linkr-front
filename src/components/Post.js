@@ -55,10 +55,14 @@ export default function Post({ post }) {
   const contentEdit = useRef(null);
   const [isEditing, setEditing] = useState(false);
   const [form, setForm] = useState({ content: "" });
+  const [contentPost, setContentPost] = useState("");
   const iLiked = whoLiked?.find((i) => i.userId === user.id);
   const [liked, setLiked] = useState(iLiked);
   const [likes, setLikes] = useState(whoLiked.length);
   const [loading, setLoading] = useState(false);
+
+  console.log(post)
+  console.log(comments[0]?.comment);
 
   const config = {
     headers: {
@@ -131,6 +135,28 @@ export default function Post({ post }) {
 
     axios
       .put(`${BASE_URL}/posts/${id}`, form, config)
+      .then(() => {
+        navigate("*");
+      })
+      .catch(() => console.log("error"));
+  }
+
+  function commentPostForm(event) {
+    event.preventDefault();
+
+    const body = {
+      content: contentPost,
+      userId: userId
+    };
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    axios
+      .post(`${BASE_URL}/comments/${id}`, body, config)
       .then(() => {
         navigate("*");
       })
@@ -257,8 +283,8 @@ export default function Post({ post }) {
       </PostCard>
 
       <CommentsStyle>
-        <div>
-          <CommentContainer>
+        {/* {comments?.map((comment, index) => ( */}
+          <CommentContainer /* key={index} */>
             <img
               src="https://br.mundo.com/fotos/201508/desenhos-2-600x559.jpg"
               alt=""
@@ -268,18 +294,24 @@ export default function Post({ post }) {
                 <h1>Nome de quem comentou </h1>
                 <span> * following/ * post's author ou não</span>
               </CommentContentTitle>
-              <p>Comentário aqui</p>
+              <p>comentário</p>
             </CommentContent>
           </CommentContainer>
-        </div>
+        {/* ))} */}
+        
 
         <ContainerToComment>
           <img
             src="https://br.mundo.com/fotos/201508/desenhos-2-600x559.jpg"
             alt="profile"
           />
-          <InputContainerToComment>
-            <input type="search" placeholder="Write a comment..." />
+          <InputContainerToComment onSubmit={commentPostForm}>
+            <input 
+              type="text" 
+              value={contentPost}
+              onChange={(e) => setContentPost(e.target.value)}
+              placeholder="Write a comment..." 
+            />
             <SearchButton type="submit">
               <TbBrandTelegram size="20px" color="#C6C6C6" />
             </SearchButton>
