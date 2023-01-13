@@ -34,6 +34,10 @@ export default function Post({ post }) {
     description,
     image,
     whoLiked,
+    comments,
+    repostUserId,
+    repostUsername,
+    repostCount,
   } = post;
   const contentEdit = useRef(null);
   const [isEditing, setEditing] = useState(false);
@@ -111,6 +115,7 @@ export default function Post({ post }) {
   return (
     <>
       <PostCard>
+        {repostUserId && <h1>REPOST BY {repostUsername}</h1>}
         {user.id === userId && (
           <ButtonDiv>
             <FaEdit
@@ -121,7 +126,7 @@ export default function Post({ post }) {
             <FaTrash color="#FFFFFF" size="17px" onClick={deletePost} />
           </ButtonDiv>
         )}
-        <Link to={`${BASE_URL}/user/${userId}`}>
+        <Link to={`/user/${userId}`}>
           <UserImg src={picture} alt="profile" />
           <h1>{username}</h1>
         </Link>
@@ -131,9 +136,9 @@ export default function Post({ post }) {
           ) : (
             <FaRegHeart size="20px" onClick={() => likePost()} />
           )}
-
           <p>{likes} likes</p>
           <AiOutlineComment color="#FFFFFF" size="20px" />
+          reposts: {repostCount}
         </LikeDiv>
 
         {whoLiked.length > 1 ? (
@@ -176,30 +181,30 @@ export default function Post({ post }) {
         </a>
       </PostCard>
 
-    <CommentsStyle>
-      <div>
-        <CommentContainer>
-          <img src="https://br.mundo.com/fotos/201508/desenhos-2-600x559.jpg" alt="" />
-          <CommentContent>
-            <CommentContentTitle>
-              <h1>Nome de quem comentou </h1>
-              <span> * following/ * post's author ou não</span>
-            </CommentContentTitle>
-            <p>Comentário aqui</p>
-          </CommentContent>
-        </CommentContainer>
-      </div>
+       <CommentsStyle>
+          <div>
+            <CommentContainer>
+              <img src="https://br.mundo.com/fotos/201508/desenhos-2-600x559.jpg" alt="" />
+              <CommentContent>
+                <CommentContentTitle>
+                  <h1>Nome de quem comentou </h1>
+                  <span> * following/ * post's author ou não</span>
+                </CommentContentTitle>
+                <p>Comentário aqui</p>
+              </CommentContent>
+            </CommentContainer>
+          </div>
 
-      <ContainerToComment>
-        <img src="https://br.mundo.com/fotos/201508/desenhos-2-600x559.jpg" alt="profile" />
-        <InputContainerToComment>
-          <input type="search" placeholder="Write a comment..." />
-          <SearchButton type="submit">
-            <TbBrandTelegram size="20px" color="#C6C6C6" />
-          </SearchButton>
-        </InputContainerToComment>
-      </ContainerToComment>
-    </CommentsStyle>
-  </>
+          <ContainerToComment>
+            <img src="https://br.mundo.com/fotos/201508/desenhos-2-600x559.jpg" alt="profile" />
+            <InputContainerToComment>
+              <input type="search" placeholder="Write a comment..." />
+              <SearchButton type="submit">
+                <TbBrandTelegram size="20px" color="#C6C6C6" />
+              </SearchButton>
+            </InputContainerToComment>
+          </ContainerToComment>
+      </CommentsStyle>
+    </>
   );
 }
