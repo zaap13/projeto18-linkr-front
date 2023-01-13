@@ -11,6 +11,13 @@ export default function Search() {
     const [input, setInput] = useState("");
     let time = null;
 
+    const user = JSON.parse(localStorage.getItem("linkr"));
+    const config = {
+        headers: {
+            Authorization: `Bearer ${user.token}`,
+        },
+    };
+
     function handleChange(e) {
         setInput(e.target.value);
         if (e.target.value.length > 2) {
@@ -23,14 +30,7 @@ export default function Search() {
         time = setTimeout(() => { filterUsers(e.target.value) }, 3000);
     };
 
-    function filterUsers(input) {
-        const user = JSON.parse(localStorage.getItem("linkr"));
-        const config = {
-            headers: {
-                Authorization: `Bearer ${user.token}`,
-            },
-        };
-      
+    function filterUsers(input) {     
         axios
             .get(`${BASE_URL}/search/${input}`, config)
             .then((res) => {
@@ -38,7 +38,7 @@ export default function Search() {
             })
             .catch((err) => {
                 setInput("");
-                console.log(err);
+                console.log(err.message);
             });
     };
 
@@ -68,7 +68,6 @@ export default function Search() {
                                         src={user.picture}
                                         alt="profile"
                                     />
-                                    {console.log(usersList, user.followed)}
                                     {user.followed === false ? <p>{user.username}</p> : <p>{user.username} ⊛ following</p>}
                                 </UserSearched>
                             </Link>

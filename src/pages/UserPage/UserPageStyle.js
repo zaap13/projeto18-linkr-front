@@ -4,7 +4,7 @@ import { titleFont, mainFont } from "../../constants/fonts";
 const ContainerPosts = styled.div`
     display: flex;
     flex-direction: column;
-    margin-top: 50px;
+    margin-top: 25px;
     width: 100%;
 `
 const Gif = styled.div`
@@ -57,6 +57,9 @@ button {
     align-items: right;
     cursor: pointer;
 };
+button:disabled {
+    background-color:#A9A9A9;
+}
 `
 
 export { ContainerPosts, Gif, Title };

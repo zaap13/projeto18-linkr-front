@@ -29,6 +29,7 @@ export default function TimeLine() {
     getPosts(setList);
   }, []);
 
+  console.log(postsList)
   if (loading === true) {
     return (
       <Main>
@@ -46,8 +47,8 @@ export default function TimeLine() {
       <Main>
         <Title>timeline</Title>
         <PostCreator setList={setList} getPosts={getPosts} />
-        {postsList.map((post) => (
-          <Post key={post.id} post={post} />
+        {postsList.map((post, index) => (
+          <Post key={index} post={post} />
         ))}
       </Main>
       <Trending />
