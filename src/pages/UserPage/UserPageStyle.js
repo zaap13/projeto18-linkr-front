@@ -1,14 +1,11 @@
 import styled from "styled-components";
-import { titleFont } from "../../constants/fonts";
+import { titleFont, mainFont } from "../../constants/fonts";
 
 const ContainerPosts = styled.div`
     display: flex;
     flex-direction: column;
-    margin-top: 50px;
-    width: 70%;
-@media (max-width: 768px) {
+    margin-top: 25px;
     width: 100%;
-}
 `
 const Gif = styled.div`
     display: flex;
@@ -24,16 +21,23 @@ const Title = styled.div`
     flex-direction: row;
     width: 100%;
     align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    margin-bottom: 18px;
+div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 img {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    margin-left: 20px;
 }
 h1 {
     font-family: ${titleFont};
     font-weight: 700;
-    font-size: 50px;
+    font-size: 43px;
     color: #FFFFFF;
     padding: 20px;
     word-break: break-word;
@@ -42,6 +46,19 @@ h1 {
     h1 {
         font-size: 33px;
     }
+}
+button {
+    font-family: ${mainFont};
+    font-size: 14px;
+    color: #FFFFFF;
+    background-color: #1877F2;
+    width: 112px;
+    height: 31px;
+    align-items: right;
+    cursor: pointer;
+};
+button:disabled {
+    background-color:#A9A9A9;
 }
 `
 
