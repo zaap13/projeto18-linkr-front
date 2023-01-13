@@ -30,7 +30,7 @@ export default function Search() {
                 Authorization: `Bearer ${user.token}`,
             },
         };
-        console.log(user)
+      
         axios
             .get(`${BASE_URL}/search/${input}`, config)
             .then((res) => {
@@ -68,7 +68,8 @@ export default function Search() {
                                         src={user.picture}
                                         alt="profile"
                                     />
-                                    <p>{user.username}</p>
+                                    {console.log(usersList, user.followed)}
+                                    {user.followed === false ? <p>{user.username}</p> : <p>{user.username} ⊛ following</p>}
                                 </UserSearched>
                             </Link>
                         </UsersSearched>

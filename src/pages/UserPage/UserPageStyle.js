@@ -21,12 +21,18 @@ const Title = styled.div`
     flex-direction: row;
     width: 100%;
     align-items: center;
+    justify-content: space-between;
+    padding: 5px;
     margin-bottom: 18px;
+div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    margin-left: 5px;
 }
 h1 {
     font-family: ${titleFont};
@@ -48,6 +54,8 @@ button {
     background-color: #1877F2;
     width: 112px;
     height: 31px;
+    align-items: right;
+    cursor: pointer;
 };
 `
 

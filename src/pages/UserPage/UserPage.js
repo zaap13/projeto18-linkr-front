@@ -15,42 +15,45 @@ export default function UserPage() {
   const [isFollowed, setIsFollowed] = useState(null);
 
   const user = JSON.parse(localStorage.getItem("linkr"));
-    const config = {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  };
 
   useEffect(() => {
     axios
       .get(`${BASE_URL}/user/${id}`, config)
       .then((res) => {
         setUserData(res.data);
+        setIsFollowed(res.data.following);
         setLoading(false);
-        //setisfollowing
-        console.log(res.data)
       })
       .catch((err) => {
         console.log(err.data);
       });
   }, []);
 
-  function follow () {
-
+  function follow() {
+    console.log('em follow')
     if (isFollowed === false) {
       axios
-      .post(`${BASE_URL}/user/follow/${id}`, config)
-      .then(() => setIsFollowed(true))
-      .catch((err) => console.log(err.data))
+        .post(`${BASE_URL}/user/follow/${id}`, config)
+        .then(() => setIsFollowed(true))
+        .catch((err) => {
+          alert("Sorry, something went wrong.")
+          console.log(err.data)
+        })
     };
-
     if (isFollowed === true) {
       axios
-      .delete(`${BASE_URL}/user/follow/${id}`, config)
-      .then(() => setIsFollowed(true))
-      .catch((err) => console.log(err.data))
+        .delete(`${BASE_URL}/user/unfollow/${id}`, config)
+        .then(() => setIsFollowed(false))
+        .catch((err) => {
+          alert("Sorry, something went wrong.")
+          console.log(err.data)
+        })
     };
-
   };
 
   if (loading === true) {
@@ -70,8 +73,10 @@ export default function UserPage() {
         <Header />
         <ContainerPosts>
           <Title>
-            <img src={userData.picture} alt="profile identification" />
-            <h1>{userData.username}'s posts</h1>
+            <div>
+              <img src={userData.picture} alt="profile identification" />
+              <h1>{userData.username}'s posts</h1>
+            </div>
             <button onClick={() => follow}>
               {isFollowed === true ? <p>Unfollow</p> : <p>Follow</p>}
             </button>
