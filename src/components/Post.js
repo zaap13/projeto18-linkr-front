@@ -18,7 +18,18 @@ import { BASE_URL } from "../constants/url";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { SearchButton } from "./Header/HeaderStyle";
-import { CommentContainer, CommentContent, CommentContentTitle, CommentsStyle, ContainerToComment, EditInput, InputContainerToComment } from "./CommentsStyle";
+import {
+  CommentContainer,
+  CommentContent,
+  CommentContentTitle,
+  CommentsStyle,
+  ContainerToComment,
+  EditInput,
+  InputContainerToComment,
+} from "./CommentsStyle";
+import "react-tooltip/dist/react-tooltip.css";
+import { Tooltip } from "react-tooltip";
+import ReactDOMServer from "react-dom/server";
 
 export default function Post({ post }) {
   const navigate = useNavigate();
@@ -132,22 +143,44 @@ export default function Post({ post }) {
         </Link>
         <LikeDiv>
           {liked ? (
-            <FaHeart color="#AC0000" size="20px" onClick={() => unlikePost()} />
+            <FaHeart
+              id={id}
+              data-tooltip-html={ReactDOMServer.renderToString(
+                <>
+                  {whoLiked.length > 1 ? (
+                    <p>Você e outras {likes - 1} pessoas</p>
+                  ) : (
+                    <p>Você</p>
+                  )}
+                </>
+              )}
+              color="#AC0000"
+              size="20px"
+              onClick={() => unlikePost()}
+            />
           ) : (
-            <FaRegHeart size="20px" onClick={() => likePost()} />
+            <FaRegHeart
+              id={id}
+              data-tooltip-html={ReactDOMServer.renderToString(
+                <>
+                  {whoLiked.length > 1 ? (
+                    <p>
+                      {whoLiked[0]?.username} e outras {likes - 1} pessoas
+                    </p>
+                  ) : (
+                    <p>{whoLiked[0]?.username}</p>
+                  )}
+                </>
+              )}
+              size="20px"
+              onClick={() => likePost()}
+            />
           )}
+          <Tooltip anchorId={id} />
           <p>{likes} likes</p>
           <AiOutlineComment color="#FFFFFF" size="20px" />
           reposts: {repostCount}
         </LikeDiv>
-
-        {whoLiked.length > 1 ? (
-          <p>
-            {whoLiked[0]?.username} e outras {likes - 1} pessoas
-          </p>
-        ) : (
-          <p>{whoLiked[0]?.username}</p>
-        )}
 
         {content && (
           <>
@@ -181,29 +214,35 @@ export default function Post({ post }) {
         </a>
       </PostCard>
 
-       <CommentsStyle>
-          <div>
-            <CommentContainer>
-              <img src="https://br.mundo.com/fotos/201508/desenhos-2-600x559.jpg" alt="" />
-              <CommentContent>
-                <CommentContentTitle>
-                  <h1>Nome de quem comentou </h1>
-                  <span> * following/ * post's author ou não</span>
-                </CommentContentTitle>
-                <p>Comentário aqui</p>
-              </CommentContent>
-            </CommentContainer>
-          </div>
+      <CommentsStyle>
+        <div>
+          <CommentContainer>
+            <img
+              src="https://br.mundo.com/fotos/201508/desenhos-2-600x559.jpg"
+              alt=""
+            />
+            <CommentContent>
+              <CommentContentTitle>
+                <h1>Nome de quem comentou </h1>
+                <span> * following/ * post's author ou não</span>
+              </CommentContentTitle>
+              <p>Comentário aqui</p>
+            </CommentContent>
+          </CommentContainer>
+        </div>
 
-          <ContainerToComment>
-            <img src="https://br.mundo.com/fotos/201508/desenhos-2-600x559.jpg" alt="profile" />
-            <InputContainerToComment>
-              <input type="search" placeholder="Write a comment..." />
-              <SearchButton type="submit">
-                <TbBrandTelegram size="20px" color="#C6C6C6" />
-              </SearchButton>
-            </InputContainerToComment>
-          </ContainerToComment>
+        <ContainerToComment>
+          <img
+            src="https://br.mundo.com/fotos/201508/desenhos-2-600x559.jpg"
+            alt="profile"
+          />
+          <InputContainerToComment>
+            <input type="search" placeholder="Write a comment..." />
+            <SearchButton type="submit">
+              <TbBrandTelegram size="20px" color="#C6C6C6" />
+            </SearchButton>
+          </InputContainerToComment>
+        </ContainerToComment>
       </CommentsStyle>
     </>
   );

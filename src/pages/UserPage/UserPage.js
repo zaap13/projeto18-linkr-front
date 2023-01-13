@@ -52,8 +52,8 @@ export default function UserPage() {
             <img src={userData.picture} alt="profile identification" />
             <h1>{userData.username}'s posts</h1>
           </Title>
-          {userData.posts.map((post) => (
-            <Post key={post.id} post={post} />
+          {userData.posts.map((post, i) => (
+            <Post key={i} post={post} />
           ))}
         </ContainerPosts>
       </Main>
