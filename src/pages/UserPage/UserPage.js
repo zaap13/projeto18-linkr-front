@@ -46,36 +46,28 @@ export default function UserPage() {
 
   return (
 
-    // <Container>
-    //   <Header>
-    //     <Main>
-    //       <ContainerPosts>
-    //         <Title>
-    //           <img src={userData.picture} alt="profile identification" />
-    //           <h1>{userData.username}'s posts</h1>
-    //         </Title>
-    //         {userData.posts.map((post) => (
-    //           <Post key={post.id} post={post} />
-    //         ))}
-    //       </ContainerPosts>
-    //     </Main>
-    //     <Trending/>
-    //   </Header>
-    // </Container>
     <Container>
-      <Main>
-        <Header />
-        <ContainerPosts>
-          <Title>
-            <img src={userData.picture} alt="profile identification" />
-            <h1>{userData.username}'s posts</h1>
-          </Title>
-          {userData.posts.map((post) => (
-            <Post key={post.id} post={post} />
-          ))}
-        </ContainerPosts>
-      </Main>
-      <Trending />
+      <Header>
+        <Main>
+         
+        </Main>
+        <Trending/>
+      </Header>
     </Container>
+    // <Container>
+    //   <Main>
+    //     <Header />
+    //     <ContainerPosts>
+    //       <Title>
+    //         <img src={userData.picture} alt="profile identification" />
+    //         <h1>{userData.username}'s posts</h1>
+    //       </Title>
+    //       {userData.posts.map((post) => (
+    //         <Post key={post.id} post={post} />
+    //       ))}
+    //     </ContainerPosts>
+    //   </Main>
+    //   <Trending />
+    // </Container>
   );
 }
