@@ -2,6 +2,7 @@ import {
   ButtonDiv,
   LikeDiv,
   PostCard,
+  Repost,
   UrlBox,
   UrlImg,
   UserImg,
@@ -10,6 +11,7 @@ import { ReactTagify } from "react-tagify";
 
 import { AiOutlineComment } from "react-icons/ai";
 import { TbBrandTelegram } from "react-icons/tb";
+import { BiRepost } from "react-icons/bi";
 
 import { FaHeart, FaRegHeart, FaTrash, FaEdit } from "react-icons/fa";
 
@@ -53,6 +55,10 @@ export default function Post({ post }) {
   const contentEdit = useRef(null);
   const [isEditing, setEditing] = useState(false);
   const [form, setForm] = useState({ content: "" });
+  const iLiked = whoLiked?.find((i) => i.userId === user.id);
+  const [liked, setLiked] = useState(iLiked);
+  const [likes, setLikes] = useState(whoLiked.length);
+  const [loading, setLoading] = useState(false);
 
   const config = {
     headers: {
@@ -61,26 +67,45 @@ export default function Post({ post }) {
   };
 
   function likePost() {
+    setLoading(true);
     axios
       .post(`${BASE_URL}/posts/like/${id}`, {}, config)
       .then(() => {
         setLiked(true);
         setLikes(likes + 1);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err.message));
+  }
+
+  function sharePost() {
+    setLoading(true);
+
+    axios
+      .post(`${BASE_URL}/posts/share/${id}`, {}, config)
+      .then(() => {
+        navigate("*");
+        setLoading(false);
       })
       .catch((err) => console.log(err.message));
   }
 
   function unlikePost() {
+    setLoading(true);
+
     axios
       .delete(`${BASE_URL}/posts/like/${id}`, config)
       .then(() => {
         setLiked(false);
         setLikes(likes - 1);
+        setLoading(false);
       })
       .catch((err) => console.log(err.message));
   }
 
   function deletePost() {
+    setLoading(true);
+
     const confirmDelete = window.confirm(
       "Tem certeza que você quer excluir este post?"
     );
@@ -88,9 +113,12 @@ export default function Post({ post }) {
       axios
         .delete(`${BASE_URL}/posts/${id}`, config)
         .then(() => {
-          window.location.reload(false);
+          navigate("*");
+          setLoading(false);
         })
         .catch(() => console.log("error"));
+    } else {
+      setLoading(false);
     }
   }
 
@@ -104,7 +132,7 @@ export default function Post({ post }) {
     axios
       .put(`${BASE_URL}/posts/${id}`, form, config)
       .then(() => {
-        window.location.reload(false);
+        navigate("*");
       })
       .catch(() => console.log("error"));
   }
@@ -119,31 +147,37 @@ export default function Post({ post }) {
     }
   }, [isEditing]);
 
-  const iLiked = whoLiked?.find((i) => i.userId === user.id);
-  const [liked, setLiked] = useState(iLiked);
-  const [likes, setLikes] = useState(whoLiked.length);
-
   return (
     <>
+      {repostUserId && (
+        <Repost>
+          <BiRepost color="#FFFFFF" size="15px" />
+          {repostUserId === user.id ? (
+            <spam>Re-posted by you</spam>
+          ) : (
+            <spam>Re-posted by {repostUsername}</spam>
+          )}
+        </Repost>
+      )}
       <PostCard>
-        {repostUserId && <h1>REPOST BY {repostUsername}</h1>}
         {user.id === userId && (
           <ButtonDiv>
-            <FaEdit
-              color="#FFFFFF"
-              size="18px"
-              onClick={() => setEditing(!isEditing)}
-            />
-            <FaTrash color="#FFFFFF" size="17px" onClick={deletePost} />
+            <button onClick={() => setEditing(!isEditing)} disabled={loading}>
+              <FaEdit color="#FFFFFF" size="17px" />
+            </button>
+            <button onClick={deletePost} disabled={loading}>
+              <FaTrash color="#FFFFFF" size="17px" />
+            </button>
           </ButtonDiv>
         )}
-        <Link to={`/user/${userId}`}>
-          <UserImg src={picture} alt="profile" />
-          <h1>{username}</h1>
-        </Link>
+
         <LikeDiv>
+          <Link to={`/user/${userId}`}>
+            <UserImg src={picture} alt="profile" />
+            <h1>{username}</h1>
+          </Link>
           {liked ? (
-            <FaHeart
+            <button
               id={id}
               data-tooltip-html={ReactDOMServer.renderToString(
                 <>
@@ -154,12 +188,13 @@ export default function Post({ post }) {
                   )}
                 </>
               )}
-              color="#AC0000"
-              size="20px"
               onClick={() => unlikePost()}
-            />
+              disabled={loading}
+            >
+              <FaHeart color="#AC0000" size="25px" />
+            </button>
           ) : (
-            <FaRegHeart
+            <button
               id={id}
               data-tooltip-html={ReactDOMServer.renderToString(
                 <>
@@ -172,14 +207,21 @@ export default function Post({ post }) {
                   )}
                 </>
               )}
-              size="20px"
               onClick={() => likePost()}
-            />
+              disabled={loading}
+            >
+              <FaRegHeart size="25px" color="#fff" />
+            </button>
           )}
           <Tooltip anchorId={id} />
           <p>{likes} likes</p>
-          <AiOutlineComment color="#FFFFFF" size="20px" />
-          reposts: {repostCount}
+          <AiOutlineComment color="#FFFFFF" size="25px" />
+          <p> {comments.length} comments</p>
+          <button disabled={loading} onClick={() => sharePost()}>
+            <BiRepost color="#FFFFFF" size="25px" />
+          </button>
+
+          <p> {repostCount} reposts</p>
         </LikeDiv>
 
         {content && (
